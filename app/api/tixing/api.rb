@@ -6,6 +6,7 @@ module Tixing
     mount Users
     mount Devices
     mount Services
+    mount Notifications
 
     route :any, '*path' do
       error!({ error: 'Not Found', code: 404})
