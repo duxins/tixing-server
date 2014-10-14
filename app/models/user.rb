@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_secure_password
   acts_as_paranoid
 
+  has_many :devices
+
   before_validation :downcase_email
   before_create :generate_token
 
