@@ -4,6 +4,7 @@ module Tixing
     prefix 'api'
     helpers Tixing::Helpers
     mount Users
+    mount Devices
 
     route :any, '*path' do
       error!({ error: 'Not Found', code: 404})

@@ -4,6 +4,7 @@ module Tixing
       expose :id
       expose :name
       expose :created_at
+      expose :updated_at
     end
   end
 end
