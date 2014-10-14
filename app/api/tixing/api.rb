@@ -2,11 +2,11 @@ module Tixing
   class API < Grape::API
     format :json
     prefix 'api'
-
     helpers Tixing::Helpers
+    mount Users
 
-    get '/' do
-      authenticate!
+    route :any, '*path' do
+      error!({ error: 'Not Found', code: 404})
     end
 
   end
