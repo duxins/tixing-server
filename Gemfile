@@ -12,9 +12,10 @@ gem 'curb'
 gem 'mechanize'
 gem 'execjs'
 
+gem 'kaminari'
 gem 'grape'
 gem 'grape-entity'
-
+gem 'grape-kaminari'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
