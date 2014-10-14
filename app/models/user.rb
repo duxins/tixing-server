@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
   acts_as_paranoid
 
   has_many :devices
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
+  has_many :installations
+  has_many :services, through: :installations
 
   before_validation :downcase_email
   before_create :generate_token

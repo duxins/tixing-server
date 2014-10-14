@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014012017) do
+ActiveRecord::Schema.define(version: 20141014013340) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 20141014012017) do
   end
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
+
+  create_table "installations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "service_id"
+    t.text     "preferences"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "installations", ["service_id"], name: "index_installations_on_service_id", using: :btree
+  add_index "installations", ["user_id", "service_id"], name: "index_installations_on_user_id_and_service_id", unique: true, using: :btree
+  add_index "installations", ["user_id"], name: "index_installations_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.string   "message",    limit: 1000
@@ -34,6 +46,13 @@ ActiveRecord::Schema.define(version: 20141014012017) do
 
   add_index "notifications", ["deleted_at"], name: "index_notifications_on_deleted_at", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "services", force: true do |t|
+    t.string   "name"
+    t.string   "icon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email"
