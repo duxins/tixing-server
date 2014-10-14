@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   acts_as_paranoid
 
   has_many :devices
+  has_many :notifications
 
   before_validation :downcase_email
   before_create :generate_token
