@@ -6,7 +6,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'figaro'
 gem 'paranoia', '~> 2.0'
-gem 'whenever'
+
+gem 'whenever', require: false
 gem 'sidekiq'
 gem 'json'
 gem 'houston'
