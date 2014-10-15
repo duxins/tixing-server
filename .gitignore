@@ -18,4 +18,5 @@
 
 /config/database.yml
 /config/application.yml
+/config/apn_certificate.pem
 
