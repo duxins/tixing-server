@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014013340) do
+ActiveRecord::Schema.define(version: 20141014061339) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -66,5 +66,31 @@ ActiveRecord::Schema.define(version: 20141014013340) do
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", using: :btree
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+
+  create_table "weibo_followers", force: true do |t|
+    t.integer  "uid",        limit: 8,    null: false
+    t.integer  "user_id"
+    t.string   "keyword",    limit: 1000
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weibo_followers", ["uid"], name: "index_weibo_followers_on_uid", using: :btree
+  add_index "weibo_followers", ["user_id"], name: "index_weibo_followers_on_user_id", using: :btree
+
+  create_table "weibo_users", force: true do |t|
+    t.integer  "uid",             limit: 8
+    t.string   "name"
+    t.string   "avatar"
+    t.text     "metadata"
+    t.string   "last_weibo_id"
+    t.string   "last_checked_at"
+    t.string   "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "weibo_users", ["deleted_at"], name: "index_weibo_users_on_deleted_at", using: :btree
+  add_index "weibo_users", ["uid"], name: "index_weibo_users_on_uid", unique: true, using: :btree
 
 end
