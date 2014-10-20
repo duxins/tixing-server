@@ -19,7 +19,7 @@ module Tixing
       desc 'Retrieve a single notification'
 
       get '/:id' do
-        notification = current_user.notifications.nd(params[:id])
+        notification = current_user.notifications.find(params[:id])
         present notification, with: Tixing::Entities::Notification
       end
 
