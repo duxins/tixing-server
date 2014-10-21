@@ -10,6 +10,11 @@ module Tixing
         present current_user.services, with:Tixing::Entities::Service
       end
 
+      desc 'List all services'
+      get '/public' do
+        present Service.all, with:Tixing::Entities::Service
+      end
+
 
       desc 'Retrieve a single service'
       get '/:id' do
