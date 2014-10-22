@@ -8,6 +8,7 @@ class APNWorker
   end
 
   def perform(message, token, custom_data = nil)
+    logger.info "to:#{token}, message: #{message}"
 
     APN_POOL.with do |connection|
         notification = Houston::Notification.new(device: token)
