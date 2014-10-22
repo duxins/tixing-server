@@ -1,7 +1,5 @@
 module Tixing
   class Notifications < Grape::API
-    include Grape::Kaminari
-
     namespace :notifications do
 
       before do
@@ -9,11 +7,20 @@ module Tixing
       end
 
       desc "List authenticated user's notifications"
-      paginate
 
       get '/' do
         notifications = current_user.notifications
-        present paginate(notifications), with: Tixing::Entities::Notification
+
+        pagination = {}
+
+        notifications =  notifications.page(params[:page]).per(25).tap do |data|
+            pagination[:total_pages]  = data.num_pages
+            pagination[:next_page]    = data.next_page || 0
+            pagination[:prev_page]    = data.prev_page || 0
+        end
+
+        present :data, notifications, with: Tixing::Entities::Notification
+        present :pagination, pagination, with: Tixing::Entities::Pagination
       end
 
       desc 'Retrieve a single notification'
