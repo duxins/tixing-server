@@ -21,5 +21,16 @@ module Tixing
       end
     end
 
+    desc 'Set default alert sound for the authenticated user.'
+    params do
+      requires :sound, type:String
+    end
+
+    put '/user/sound' do
+      status 204
+      authenticate!
+      current_user.update(sound: params[:sound])
+    end
+
   end
 end

@@ -4,6 +4,7 @@ module Tixing
       expose :id
       expose :email
       expose :auth_token
+      expose :sound
       expose :devices, with: Device
       expose :services, with: Service
     end
