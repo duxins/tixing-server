@@ -7,7 +7,12 @@ module Tixing
 
       desc 'List all installed services for the current user'
       get '/' do
-        present current_user.services, with:Tixing::Entities::Service
+
+        installed = current_user.services
+        uninstalled = Service.all.where.not(id: installed.map{|r| r.id})
+
+        present :installed, installed, with:Tixing::Entities::Service
+        present :uninstalled, uninstalled, with:Tixing::Entities::Service
       end
 
       desc 'List all services'
