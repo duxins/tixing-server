@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :devices
   has_many :notifications, dependent: :destroy
   has_many :installations
-  has_many :services, -> { order 'installations.id DESC' }, through: :installations
+  has_many :services, -> { order 'installations.id ASC' }, through: :installations
 
   before_validation :downcase_email
   before_create :generate_token
