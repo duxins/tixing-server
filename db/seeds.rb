@@ -25,3 +25,13 @@ service_list.each do |service|
   s.save!
 end
 
+if Rails.env == 'development'
+  user = User.find_or_initialize_by(name: 'demo')
+  if user.new_record?
+    user.name = 'demo'
+    user.password = '1234'
+    user.auth_token = '1234'
+    user.save!
+  end
+end
+
