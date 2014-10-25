@@ -9,15 +9,15 @@ module Tixing
 
     desc 'Login'
     params do
-      requires :email, type:String
+      requires :name, type:String
       requires :password, type:String
     end
     post '/login' do
-      user = User.find_by_email(params[:email])
+      user = User.find_by_name(params[:name])
       if user && user.authenticate(params[:password])
         present user, with: Tixing::Entities::User, type: 'full'
       else
-        error!({error:'Incorrect email or password.', code:1000}, 400)
+        error!({error:'Incorrect username or password.', code:1000}, 400)
       end
     end
 

@@ -7,16 +7,11 @@ class User < ActiveRecord::Base
   has_many :installations
   has_many :services, -> { order 'installations.id ASC' }, through: :installations
 
-  before_validation :downcase_email
   before_create :generate_token
 
-  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{4,15}\Z/i}
 
 private
-
-  def downcase_email
-    self.email = self.email.strip.downcase
-  end
 
   def generate_token
     begin

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024101513) do
+ActiveRecord::Schema.define(version: 20141025043508) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20141024101513) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email"
+    t.string   "name"
     t.string   "password_digest"
     t.string   "auth_token"
     t.string   "sound",           default: "tixing"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20141024101513) do
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", using: :btree
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
 
   create_table "weibo_followers", force: true do |t|
     t.integer  "uid",        limit: 8,    null: false
