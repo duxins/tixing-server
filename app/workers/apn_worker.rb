@@ -7,13 +7,16 @@ class APNWorker
     APNConnection.new
   end
 
-  def perform(message, token, custom_data = nil)
-    logger.info "to:#{token}, message: #{message}"
+  def perform(message, token, sound, custom_data = nil)
+
+    sound = "#{sound}.caf" if sound && sound != 'default'
+
+    logger.info "to:#{token}, message: #{message}, sound: #{sound}"
 
     APN_POOL.with do |connection|
         notification = Houston::Notification.new(device: token)
         notification.alert = message
-        notification.sound = 'default'
+        notification.sound = sound if sound
         notification.custom_data = custom_data
         connection.write(notification.message)
     end

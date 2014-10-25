@@ -3,14 +3,15 @@ class NotificationWorker
   sidekiq_options retry: :false
 
   def perform(user_id, service_id, message)
-    user = User.includes(:installations).joins(:installations).where(id: user_id, installations: {service: service_id}).first
+    user = User.find_by_id(user_id)
     return unless user
+    return unless user.services.pluck(:id).include?(service_id)
 
     Notification.create(user: user, message: message)
 
     devices = user.devices
     devices.each do |device|
-      APNWorker.perform_async(message, device['token'])
+      APNWorker.perform_async(message, device['token'], user.sound)
     end
   end
 
