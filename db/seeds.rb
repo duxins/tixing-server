@@ -5,3 +5,23 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+
+service_list = [
+    {
+        id: Weibo::SERVICE_ID,
+        name: '新浪微博',
+        icon: 'weibo.png',
+        url: '/services/weibo',
+    }
+];
+
+service_list.each do |service|
+  s = Service.find_or_create_by!(id: service[:id])
+  s.id    =  service[:id]
+  s.name  =  service[:name]
+  s.icon  =  service[:icon]
+  s.url   =  service[:url]
+  s.save!
+end
+

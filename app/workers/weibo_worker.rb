@@ -19,7 +19,7 @@ class WeiboWorker
        message = "#{user['name']}: #{feed['text']}"
        user.update(last_checked_at: DateTime.now, last_weibo_id: feed['mid'])
        followers.each do |follower|
-         NotificationWorker.perform_async(follower['user_id'], 1, message)
+         NotificationWorker.perform_async(follower['user_id'], Weibo::SERVICE_ID, message)
        end
     end
 
