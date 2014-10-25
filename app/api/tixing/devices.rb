@@ -21,6 +21,15 @@ module Tixing
         end
       end
 
+      desc 'Revoke device token'
+      params do
+        requires :token, type:String
+      end
+      delete '/' do
+        status 204
+        current_user.devices.where(token: params[:token]).destroy_all
+      end
+
 
       desc "List the authenticated user's devices"
       get '/' do
