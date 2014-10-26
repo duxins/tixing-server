@@ -1,4 +1,4 @@
-module Tixing
+module APIv1
   class Notifications < Grape::API
     namespace :notifications do
 
@@ -19,15 +19,15 @@ module Tixing
             pagination[:prev_page]    = data.prev_page || 0
         end
 
-        present :data, notifications, with: Tixing::Entities::Notification
-        present :pagination, pagination, with: Tixing::Entities::Pagination
+        present :data, notifications, with: APIv1::Entities::Notification
+        present :pagination, pagination, with: APIv1::Entities::Pagination
       end
 
       desc 'Retrieve a single notification'
 
       get '/:id' do
         notification = current_user.notifications.find(params[:id])
-        present notification, with: Tixing::Entities::Notification
+        present notification, with: APIv1::Entities::Notification
       end
 
       desc 'Delete a notification'

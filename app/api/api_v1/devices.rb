@@ -1,4 +1,4 @@
-module Tixing
+module APIv1
   class Devices < Grape::API
     namespace :devices do
       before do
@@ -35,7 +35,7 @@ module Tixing
 
       desc "List the authenticated user's devices"
       get '/' do
-        present current_user.devices, with:Tixing::Entities::Device
+        present current_user.devices, with:APIv1::Entities::Device
       end
 
     end

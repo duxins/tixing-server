@@ -1,10 +1,10 @@
-module Tixing
+module APIv1
   class Users < Grape::API
 
     desc "Retrieve the authenticated user's profile"
     get '/user' do
       authenticate!
-      present current_user, with: Tixing::Entities::User, type: 'full'
+      present current_user, with: APIv1::Entities::User, type: 'full'
     end
 
     desc 'Login'
@@ -15,7 +15,7 @@ module Tixing
     post '/login' do
       user = User.find_by_name(params[:name])
       if user && user.authenticate(params[:password])
-        present user, with: Tixing::Entities::User, type: 'full'
+        present user, with: APIv1::Entities::User, type: 'full'
       else
         error!({error:'Incorrect username or password.', code:1000}, 400)
       end

@@ -1,8 +1,8 @@
-module Tixing
+module APIv1
   class API < Grape::API
     format :json
     prefix 'api'
-    helpers Tixing::Helpers
+    helpers APIv1::Helpers
     mount Users
     mount Devices
     mount Services

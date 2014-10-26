@@ -1,4 +1,4 @@
-module Tixing
+module APIv1
   module Entities
     class Notification < Grape::Entity
       expose :id
