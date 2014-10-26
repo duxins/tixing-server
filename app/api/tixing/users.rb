@@ -32,5 +32,19 @@ module Tixing
       current_user.update(sound: params[:sound])
     end
 
+
+    desc 'Silence push notification at night'
+    put '/user/silence_at_night' do
+      status 204
+      authenticate!
+      current_user.update(silent_at_night: true)
+    end
+
+    delete '/user/silence_at_night' do
+      status 204
+      authenticate!
+      current_user.update(silent_at_night: false)
+    end
+
   end
 end

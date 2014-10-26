@@ -5,8 +5,9 @@ module Tixing
       expose :name
       expose :auth_token
       expose :sound
-      expose :devices, with: Device
-      expose :services, with: Service
+      expose :silent_at_night
+      expose :devices, with: Tixing::Entities::Device
+      expose :services, with: Tixing::Entities::Service
     end
   end
 end

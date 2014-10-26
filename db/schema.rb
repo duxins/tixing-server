@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025043508) do
+ActiveRecord::Schema.define(version: 20141025150328) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141025043508) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "timezone",   default: 8
   end
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id", using: :btree
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20141025043508) do
     t.string   "password_digest"
     t.string   "auth_token"
     t.string   "sound",           default: "tixing"
+    t.boolean  "silent_at_night", default: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -9,15 +9,17 @@ module Tixing
       params do
         requires :name,  type:String
         requires :token, type:String
+        requires :timezone, type:Integer
       end
       put '/' do
         status 204
         device = current_user.devices.find_or_initialize_by(token: params[:token])
         if device.new_record?
           device.name = params[:name]
-          device.save!
+          device.save
         else
-          device.touch
+          device.timezone = params[:timezone]
+          device.save
         end
       end
 

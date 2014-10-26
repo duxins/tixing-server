@@ -11,7 +11,12 @@ class NotificationWorker
 
     devices = user.devices
     devices.each do |device|
-      APNWorker.perform_async(message, device['token'], user.sound)
+      if user.silent_at_night? and device.at_night?
+        sound = nil
+      else
+        sound = user.sound
+      end
+      APNWorker.perform_async(message, device['token'], sound)
     end
   end
 
