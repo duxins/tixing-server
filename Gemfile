@@ -17,8 +17,8 @@ gem 'mechanize'
 gem 'execjs'
 
 gem 'kaminari'
-gem 'grape'
-gem 'grape-entity'
+gem 'grape', '0.7.0'
+gem 'grape-entity', '0.4.4'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
