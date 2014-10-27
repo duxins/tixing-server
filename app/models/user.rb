@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   before_create :generate_token
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{4,15}\Z/i}
+  validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z0-9]{4,15}\Z/i}, if: :name_changed?
 
 private
 
