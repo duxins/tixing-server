@@ -7,6 +7,7 @@ module APIv1
     mount Devices
     mount Services
     mount Notifications
+    mount Misc
 
     route :any, '*path' do
       error!({ error: 'Not Found', code: 404})
