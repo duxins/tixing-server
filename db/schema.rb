@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027211217) do
+ActiveRecord::Schema.define(version: 20141028040640) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -43,9 +43,11 @@ ActiveRecord::Schema.define(version: 20141027211217) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "service_id"
   end
 
   add_index "notifications", ["deleted_at"], name: "index_notifications_on_deleted_at", using: :btree
+  add_index "notifications", ["service_id"], name: "index_notifications_on_service_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "services", force: true do |t|

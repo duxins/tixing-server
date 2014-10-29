@@ -7,7 +7,7 @@ class NotificationWorker
     return unless user
     return unless user.services.pluck(:id).include?(service_id)
 
-    Notification.create(user: user, message: message)
+    Notification.create(user: user, message: message, service_id: service_id)
 
     devices = user.devices
     devices.each do |device|
