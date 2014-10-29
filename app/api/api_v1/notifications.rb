@@ -13,7 +13,7 @@ module APIv1
 
         pagination = {}
 
-        notifications =  notifications.page(params[:page]).per(25).tap do |data|
+        notifications =  notifications.includes(:service).page(params[:page]).per(25).tap do |data|
             pagination[:total_pages]  = data.num_pages
             pagination[:next_page]    = data.next_page || 0
             pagination[:prev_page]    = data.prev_page || 0
