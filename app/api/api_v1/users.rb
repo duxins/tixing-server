@@ -17,7 +17,23 @@ module APIv1
       if user && user.authenticate(params[:password])
         present user, with: APIv1::Entities::User, type: 'full'
       else
-        error!({error:'Incorrect username or password.', code:1000}, 400)
+        error!({error:'Incorrect username or password.', code:1001}, 400)
+      end
+    end
+
+    desc 'Signup'
+    params do
+      requires :name, type: String
+      requires :password, type: String
+    end
+
+    post '/signup' do
+      user = User.create(name: params[:name], password: params[:password])
+      if user.errors.any?
+        error!({error:user.errors.full_messages.join(' '), code:1002}, 400)
+      else
+        Notification.create(message: '欢迎使用信息提醒', user: user)
+        present user, with: APIv1::Entities::User, type: 'full'
       end
     end
 
