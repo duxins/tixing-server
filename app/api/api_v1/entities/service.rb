@@ -9,6 +9,8 @@ module APIv1
       expose :url do |service, options|
         "#{options[:env]['rack.url_scheme']}://#{options[:env]['HTTP_HOST']}#{service.url}"
       end
+
+      expose :description, if: {type: :full}
     end
   end
 end

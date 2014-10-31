@@ -11,20 +11,20 @@ module APIv1
         installed = current_user.services
         uninstalled = Service.all.where.not(id: installed.map{|r| r.id})
 
-        present :installed, installed, with:APIv1::Entities::Service
-        present :uninstalled, uninstalled, with:APIv1::Entities::Service
+        present :installed, installed, with:APIv1::Entities::Service, type: :full
+        present :uninstalled, uninstalled, with:APIv1::Entities::Service, type: :full
       end
 
       desc 'List all services'
       get '/public' do
-        present Service.all, with:APIv1::Entities::Service
+        present Service.all, with:APIv1::Entities::Service, type: :full
       end
 
 
       desc 'Retrieve a single service'
       get '/:id' do
         service = Service.find(params[:id])
-        present service, with:APIv1::Entities::Service
+        present service, with:APIv1::Entities::Service, type: :full
       end
 
 
