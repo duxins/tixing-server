@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031061651) do
+ActiveRecord::Schema.define(version: 20141102051625) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -37,7 +37,10 @@ ActiveRecord::Schema.define(version: 20141031061651) do
   add_index "installations", ["user_id"], name: "index_installations_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
+    t.string   "title"
     t.string   "message",    limit: 1000
+    t.string   "thumb"
+    t.string   "url"
     t.string   "sound"
     t.integer  "user_id"
     t.datetime "deleted_at"
