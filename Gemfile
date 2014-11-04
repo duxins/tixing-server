@@ -32,6 +32,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 
 group :development do
+  gem 'mina'
+  gem 'mina-sidekiq'
   gem 'spring'
   gem 'quiet_assets'
 end
