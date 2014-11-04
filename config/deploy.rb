@@ -14,6 +14,7 @@ set :branch, 'master'
 set :shared_paths, [
     'config/database.yml',
     'config/application.yml',
+    'config/apn_certificate.pem',
     'tmp',
     'log',
 ]
