@@ -22,6 +22,7 @@ gem 'grape-entity', '0.4.4'
 
 gem "rails-settings-cached", "0.4.1"
 
+gem 'high_voltage', '~> 2.2.1'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
