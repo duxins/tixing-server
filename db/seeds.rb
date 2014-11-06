@@ -12,7 +12,8 @@ service_list = [
         id: Weibo::SERVICE_ID,
         name: '新浪微博',
         icon: 'weibo.png',
-        url: '/services/weibo',
+        url: '/service/weibo',
+        description: '',
     }
 ];
 
