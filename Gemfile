@@ -22,6 +22,7 @@ gem 'grape-entity', '0.4.4'
 
 gem "rails-settings-cached", "0.4.1"
 
+gem 'slim', '~> 2.1.0'
 gem 'high_voltage', '~> 2.2.1'
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'sass-rails', '~> 4.0.3'
