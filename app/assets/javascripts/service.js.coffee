@@ -10,11 +10,11 @@
 window.Service = (->
   version = 1.0
 
-  request: (method, url, callback)->
-    callback ||= ->
+  request: (method, url, data = {}, callback = ->)->
     $.ajax
       type: method
       datatype: 'json'
+      data: data
       url: url
     .done (data)->
       callback data, data.error

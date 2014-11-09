@@ -44,7 +44,7 @@ Service.Weibo = (->
     Service.disableElement('#nickname')
     url = baseURL + 'following'
 
-    Service.request 'GET', url, (data, error)->
+    Service.request 'GET', url, {}, (data, error)->
       Service.enableElement('#nickname')
       return if error
       for user in data
@@ -53,12 +53,12 @@ Service.Weibo = (->
   # 关注用户
   follow: (nickname, callback)->
     url = baseURL + 'following/' + nickname
-    Service.request 'PUT', url, callback
+    Service.request 'PUT', url, {}, callback
 
   # 取消关注
   unfollow: (userId, callback)->
     url = baseURL + 'following/' + userId
-    Service.request 'DELETE', url, callback
+    Service.request 'DELETE', url, {}, callback
 
   # 初始化
   init: ->
