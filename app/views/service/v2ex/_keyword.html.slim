@@ -1,0 +1,8 @@
+.col-xs-12
+  .row
+    - @keywords.each do |x|
+      .col-xs-6.col-sm-3
+        .keyword_item
+          == x.keyword
+          input.remove_button.btn.btn-danger.btn-xs type='button' data-id='#{x.id}' value='删除'
+
