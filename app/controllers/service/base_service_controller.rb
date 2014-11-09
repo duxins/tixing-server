@@ -1,4 +1,5 @@
 class Service::BaseServiceController < ApplicationController
+  layout 'service'
   helper_method :current_user
 
 private
