@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>消息提醒</title>
+  <%= stylesheet_link_tag    'service', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'service', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <%= csrf_meta_tags %>
+</head>
+<body id="<%= controller_name %>">
+
+<div class="container" id="<%= controller_name %>">
+  <%= yield %>
+</div>
+
+</body>
+</html>

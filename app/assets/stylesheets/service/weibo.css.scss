@@ -1,3 +1,44 @@
-// Place all the styles related to the service/weibo controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+body#weibo {
+  padding: 40px 0;
+  background: #fff;
+
+  .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+  }
+
+  input[type=text], input[type=search] {
+    -webkit-appearance: caret;
+    border: 1px solid #ccc;
+  }
+
+  #user_list {
+    margin-top:20px;
+
+    .unfollow-button {
+      float: right;
+    }
+
+    .user_item {
+      padding: 10px 0;
+      border-bottom: 1px solid #dfdfdf;
+      margin-bottom: 10px;
+    }
+
+    .name {
+      padding-left:10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px / 4px;
+      vertical-align: middle;
+
+    }
+  }
+}
+
