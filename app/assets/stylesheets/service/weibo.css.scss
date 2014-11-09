@@ -1,4 +1,4 @@
-body#weibo {
+body[data-controller='weibo'] {
   padding: 40px 0;
   background: #fff;
 

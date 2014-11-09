@@ -69,7 +69,4 @@ Service.Weibo = (->
 
 )()
 
-$(document).ready ->
-  Service.Weibo.init()
-
 

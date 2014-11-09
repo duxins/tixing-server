@@ -42,3 +42,9 @@ window.Service = (->
     $(elem).attr 'disabled', false
 
 )()
+
+$(document).ready ->
+  controller = $(document.body).data('controller')
+  if controller
+    controller = controller[0].toUpperCase() + controller[1..-1].toLowerCase()
+    Service[controller].init() if Service[controller] and Service[controller].init
