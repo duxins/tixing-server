@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102051625) do
+ActiveRecord::Schema.define(version: 20141109083233) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 20141102051625) do
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", using: :btree
   add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["name"], name: "index_users_on_name", unique: true, using: :btree
+
+  create_table "v2ex_monitorings", force: true do |t|
+    t.integer  "user_id"
+    t.string   "keyword"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "v2ex_monitorings", ["user_id"], name: "index_v2ex_monitorings_on_user_id", using: :btree
 
   create_table "weibo_followers", force: true do |t|
     t.integer  "uid",        limit: 8,    null: false
