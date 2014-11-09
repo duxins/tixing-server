@@ -3,5 +3,10 @@
  *= require_tree ./service/
  */
 
+$nprogress-color: #21A0F5;
+$nprogress-height: 3px;
+
+@import 'nprogress';
+@import 'nprogress-bootstrap';
 @import "bootstrap-sprockets";
 @import "bootstrap";
