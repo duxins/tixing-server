@@ -1,0 +1,4 @@
+---
+:queues:
+  - [apn,3]
+  - default
