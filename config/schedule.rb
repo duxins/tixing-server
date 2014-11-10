@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 5.minutes do
-  rake 'weibo:run'
+every 3.minutes do
+  rake 'v2ex:run'
 end
