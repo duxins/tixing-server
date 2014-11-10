@@ -9,6 +9,7 @@ gem 'paranoia', '~> 2.0'
 
 gem 'whenever', require: false
 gem 'sidekiq'
+gem 'sidekiq-middleware'
 gem 'json'
 gem 'houston'
 
