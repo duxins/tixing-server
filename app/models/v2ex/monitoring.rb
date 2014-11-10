@@ -13,8 +13,6 @@ class V2ex::Monitoring < ActiveRecord::Base
       end
       topics = JSON.parse(c.body_str)
 
-      Settings['v2ex.last_topic_id'] = 0
-
       last_topic_id = Settings['v2ex.last_topic_id'].to_i
       topics.select! {|topic| topic['id'].to_i > last_topic_id }
 
