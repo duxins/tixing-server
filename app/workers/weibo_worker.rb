@@ -2,7 +2,7 @@ require 'notification_helper'
 
 class WeiboWorker
   include Sidekiq::Worker
-  sidekiq_options retry: :false
+  sidekiq_options retry: false
 
   def perform(id)
     weibo_user = Weibo::User.find(id)
