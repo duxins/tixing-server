@@ -119,6 +119,7 @@ GEM
     mysql2 (0.3.16)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
+    newrelic_rpm (3.9.5.251)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     nprogress-rails (0.1.6.3)
@@ -232,6 +233,7 @@ DEPENDENCIES
   mina
   mina-sidekiq
   mysql2
+  newrelic_rpm
   nprogress-rails
   paranoia (~> 2.0)
   quiet_assets

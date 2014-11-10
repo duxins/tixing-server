@@ -42,3 +42,7 @@ group :development do
   gem 'quiet_assets'
 end
 
+group :production do
+  gem 'newrelic_rpm'
+end
+
