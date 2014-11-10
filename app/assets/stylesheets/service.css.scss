@@ -3,6 +3,11 @@
  *= require_tree ./service/
  */
 
+html{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
 $nprogress-color: #21A0F5;
 $nprogress-height: 3px;
 
