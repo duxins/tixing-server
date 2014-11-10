@@ -2,6 +2,7 @@ require 'open-uri'
 
 class Weibo::User < ActiveRecord::Base
   has_many :followers, primary_key:'uid', foreign_key:'uid', class_name: "Weibo::Follower"
+  scope :available, lambda { where('followers_count >?', 0).order('followers_count DESC') }
 
   def followed_by?(user)
     self.followers.where(user: user).present?

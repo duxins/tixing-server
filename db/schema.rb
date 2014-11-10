@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109083233) do
+ActiveRecord::Schema.define(version: 20141110050959) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 20141109083233) do
     t.string   "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "followers_count",           default: 0
   end
 
   add_index "weibo_users", ["deleted_at"], name: "index_weibo_users_on_deleted_at", using: :btree
