@@ -8,6 +8,33 @@ class Weibo::User < ActiveRecord::Base
     self.followers.where(user: user).present?
   end
 
+  def fetch_new_feeds
+    url = ENV['weibo_api'] + "/feed/#{self.uid}"
+    since = self.last_weibo_id
+    url += "?since=#{since}" if since
+
+    begin
+      Rails.logger.info("Request #{url}")
+
+      c = Curl::Easy.perform(url) do |curl|
+        curl.connect_timeout = 5
+      end
+
+      feeds = JSON.parse(c.body_str)
+      return [] if feeds.empty?
+
+      Rails.logger.info("Feeds: #{feeds.map{|x| x['mid']}}")
+
+      feeds.select!{|feed| feed['mid'] > self.last_weibo_id.to_i}
+      feeds.sort_by!{|feed| feed['mid']}
+    rescue => e
+      Rails.logger.error("Weibo API error (feed/#{self.uid}) :#{e.message}")
+      return []
+    end
+  end
+
+  #Class Methods
+
   def self.fetch_weibo_user(name)
     api_url = %[#{ENV['weibo_api']}/user/#{URI.escape(name)}]
     begin

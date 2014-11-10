@@ -1,25 +1,29 @@
+require 'notification_helper'
+
 class WeiboWorker
   include Sidekiq::Worker
+  sidekiq_options retry: :false
 
   def perform(id)
-    user = Weibo::User.find(id)
-    since = user.last_weibo_id
-    followers = user.followers
-    return if followers.count == 0
+    weibo_user = Weibo::User.find(id)
+    feeds = weibo_user.fetch_new_feeds
+    return if feeds.empty?
 
-    url = ENV['weibo_spider_url'] + "/feed/#{user.uid}"
-    url += "?since=#{since}" if since
-
-    http = Curl.get(url).body_str
-    feeds = JSON.parse(http)
-
-    feeds.sort_by!{|feed| feed['mid']}
+    followers = weibo_user.followers
+    weibo_user.update(last_checked_at: DateTime.now, last_weibo_id: feeds.last['mid'])
 
     feeds.each do |feed|
-       message = "#{user['name']}: #{feed['text']}"
-       user.update(last_checked_at: DateTime.now, last_weibo_id: feed['mid'])
+       push_message = "#{weibo_user['name']}: #{feed['text']}"
+
        followers.each do |follower|
-         NotificationWorker.perform_async(follower['user_id'], Weibo::SERVICE_ID, message)
+           NotificationHelper.send ({
+               user_id: follower['user_id'],
+            service_id: Weibo::SERVICE_ID,
+                 title: weibo_user.name,
+               message: feed['text'],
+          push_message: push_message,
+                 thumb: weibo_user['avatar']
+           })
        end
     end
 

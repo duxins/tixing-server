@@ -5,6 +5,7 @@ class NotificationHelper
     service_id = data[:service_id]
     title = data[:title] || '消息提醒'
     message = data[:message]
+    push_message = data[:push_message] || "#{title}:#{message}"
     thumb = data[:thumb] || ''
     url = data[:url] || ''
 
@@ -25,7 +26,7 @@ class NotificationHelper
                 user.sound
               end
 
-      APNWorker.perform_async("#{title}:#{message}", device['token'], sound, {id: notification.id})
+      APNWorker.perform_async(push_message, device['token'], sound, {id: notification.id})
     end
 
   end
