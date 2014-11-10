@@ -1,8 +1,6 @@
 class Service::V2exController < Service::BaseServiceController
   before_action :authorize!
 
-  skip_before_filter :verify_authenticity_token
-
   def index
     @keywords = V2ex::Monitoring.where(user: current_user).select('id, keyword')
     if params[:partial]

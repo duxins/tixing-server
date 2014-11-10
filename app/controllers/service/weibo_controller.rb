@@ -1,6 +1,5 @@
 class Service::WeiboController < Service::BaseServiceController
   before_action :authorize!
-  # skip_before_filter :verify_authenticity_token
 
   def index
   end
