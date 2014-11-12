@@ -3,7 +3,7 @@ require 'apn_connection'
 class APNWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: :apn, retry: false
+  sidekiq_options retry: false
 
   APN_POOL = ConnectionPool.new(size: 5, timeout: 300) do
     APNConnection.new
