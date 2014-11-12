@@ -8,13 +8,20 @@
 
 
 service_list = [
-    {
-        id: Weibo::SERVICE_ID,
-        name: '新浪微博',
-        icon: 'weibo.png',
-        url: '/service/weibo',
-        description: '',
-    }
+  {
+    id: Weibo::SERVICE_ID,
+    name: '新浪微博',
+    icon: 'weibo.png',
+    url: '/service/weibo',
+    description: '',
+  },
+  {
+    id: V2ex::SERVICE_ID,
+    name: 'V2EX',
+    icon: 'v2ex.png',
+    url: '/service/v2ex',
+    description: '',
+  }
 ];
 
 service_list.each do |service|
@@ -26,6 +33,7 @@ service_list.each do |service|
   s.save!
 end
 
+# Demo user
 if Rails.env == 'development'
   user = User.find_or_initialize_by(name: 'demo')
   if user.new_record?
@@ -35,4 +43,18 @@ if Rails.env == 'development'
     user.save!
   end
 end
+
+# Rpush APP
+app = Rpush::Apns::App.find_or_initialize_by(name: 'ios')
+app.id = 1
+app.certificate = File.read("#{Rails.root}/config/apn_certificate.pem")
+
+if Rails.env == 'development'
+  app.environment = 'sandbox'
+  app.connections = 1
+else
+  app.environment = 'production'
+  app.connections = 5
+end
+app.save!
 
