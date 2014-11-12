@@ -10,6 +10,7 @@ set :user,   'deploy'
 set :deploy_to, '/var/www/tixing'
 set :repository, 'git@github.com:duxins/tixing-server.git'
 set :branch, 'master'
+set :rpush_pid_file, "#{deploy_to}/#{shared_path}/tmp/rpush.pid"
 
 set :shared_paths, [
     'config/database.yml',
@@ -55,9 +56,30 @@ task :deploy => :environment do
     to :launch do
       queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
+      invoke :'rpush:reload'
       invoke :'whenever:update'
       invoke :'sidekiq:restart'
     end
   end
 end
 
+namespace :rpush do
+  task :reload => :environment do
+    queue %[echo "-----> Reload rpush"]
+    queue %{
+        if [ -f #{rpush_pid_file} ]; then
+          kill -s HUP `cat #{rpush_pid_file}`
+        else
+          echo 'No pid file found'
+        fi
+      }
+  end
+
+  task :start => :environment do
+    queue %[echo "-----> Start rpush"]
+    queue %{
+      cd "#{deploy_to}/#{current_path}"
+      #{echo_cmd %[bundle exec rpush start] }
+    }
+  end
+end
