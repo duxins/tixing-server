@@ -16,11 +16,8 @@ class Weibo::User < ActiveRecord::Base
     begin
       Rails.logger.info("Request #{url}")
 
-      c = Curl::Easy.perform(url) do |curl|
-        curl.connect_timeout = 5
-      end
+      feeds = Weibo::User.request_api(url)
 
-      feeds = JSON.parse(c.body_str)
       return [] if feeds.empty?
 
       Rails.logger.info("Feeds: #{feeds.map{|x| x['mid']}}")
@@ -33,15 +30,19 @@ class Weibo::User < ActiveRecord::Base
     end
   end
 
-  #Class Methods
+  def self.request_api(url)
+    json = Timeout::timeout(5) do
+      Curl::Easy.perform(url) do |curl|
+        curl.connect_timeout = 5
+      end.body_str
+    end
+    JSON.parse(json)
+  end
 
   def self.fetch_weibo_user(name)
-    api_url = %[#{ENV['weibo_api']}/user/#{URI.escape(name)}]
+    url = %[#{ENV['weibo_api']}/user/#{URI.escape(name)}]
     begin
-      json = Timeout::timeout(5) do
-        open(api_url).read
-      end
-      weibo_user = JSON.parse(json)
+      weibo_user = Weibo::User.request_api(url)
       self.save_weibo_user(weibo_user)
     rescue => e
       Rails.logger.error("Weibo API error (/user/#{name}): #{e.message}")
