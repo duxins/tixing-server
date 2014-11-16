@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :installations
   has_many :services, -> { order 'installations.id ASC' }, through: :installations
 
+  default_scope { where(disabled: false) }
   before_create :generate_token
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z0-9]{4,15}\Z/i}, if: :name_changed?
