@@ -38,7 +38,7 @@ class NotificationHelper
     if Rails.cache.read(cache_key)
       sound = nil
     else
-      Rails.cache.write(cache_key, true, expires_in: 30.seconds)
+      Rails.cache.write(cache_key, true, expires_in: 5.seconds)
     end
 
     sound = "#{sound}.caf" if sound && sound != 'default'
@@ -49,7 +49,7 @@ class NotificationHelper
     n.app = Rpush::Apns::App.find_by_name('ios')
     n.device_token = token
     n.alert = message
-    n.sound = sound if sound
+    n.sound = sound
     n.data = custom_data
     n.save!
   end
