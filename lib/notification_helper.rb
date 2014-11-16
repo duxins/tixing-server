@@ -12,18 +12,19 @@ class NotificationHelper
     user = User.find_by_id(user_id)
 
     return unless user
-    return unless Installation.exists?(user_id: user_id, service_id: service_id)
+    return unless installation = user.installations.where(service_id: service_id).first
 
     notification = Notification.create(user: user, service_id:service_id, thumb: thumb, url: url, title: title, message: message)
     return unless notification
 
+    sound = installation.preferences[:sound] || user.sound
 
     devices = user.devices
     devices.each do |device|
       sound = if user.silent_at_night? and device.at_night?
                 nil
               else
-                user.sound
+                sound
               end
 
       self.deliver(push_message, device['token'], sound, {id: notification.id})
