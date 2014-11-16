@@ -30,6 +30,9 @@ window.Service = (->
   goBack: ->
     TixingBridge.goBack() if TixingBridge?
 
+  scanQRCode: (callback)->
+    TixingBridge.scanQRCode(callback)
+
   uninstall: ->
     TixingBridge.uninstallService() if TixingBridge?
 
