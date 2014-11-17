@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   default_scope { where(disabled: false) }
   before_create :generate_token
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z0-9]{4,15}\Z/i}, if: :name_changed?
+  validates :name, presence: true, uniqueness: { case_sensitive: false, if: :name_changed? }, format: { with: /\A[a-z0-9]{4,15}\Z/i}
 
 private
 

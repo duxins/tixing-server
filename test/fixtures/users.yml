@@ -4,5 +4,4 @@ demo:
   id: 1
   name: demo
   password_digest: MyString
-  deleted_at: 2014-10-13 20:21:13
 
