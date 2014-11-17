@@ -17,7 +17,7 @@ end
 
 namespace :v2ex do
   task :run => :environment do
-    topics = V2ex::Monitoring.fetch_recent_topics
+    topics = V2ex.recent
     exit if topics.empty?
 
     V2ex::Monitoring.select(:id, :user_id, :keyword).find_in_batches do |group|
