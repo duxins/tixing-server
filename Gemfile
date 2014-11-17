@@ -49,3 +49,7 @@ group :production do
   gem 'newrelic_rpm'
 end
 
+group :test do
+  gem 'timecop'
+end
+
