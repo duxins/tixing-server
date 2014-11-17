@@ -21,11 +21,7 @@ class NotificationHelper
 
     devices = user.devices
     devices.each do |device|
-      sound = if user.silent_at_night? and device.at_night?
-                nil
-              else
-                sound
-              end
+      sound = nil if user.silent_at_night? and device.at_night?
 
       self.deliver(push_message, device['token'], sound, {id: notification.id})
     end

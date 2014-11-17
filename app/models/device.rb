@@ -6,6 +6,6 @@ class Device < ActiveRecord::Base
 
   def at_night?
     now = DateTime.now.in_time_zone(self.timezone)
-    !now.hour.between?(8, 22)
+    now.hour < 8 or now.hour >= 22
   end
 end
