@@ -6,6 +6,7 @@ class V2ex::Monitoring < ActiveRecord::Base
 
 private
   def format_keyword
-    self.keyword.strip!
+    self.keyword.gsub!(/[\u{1F600}-\u{1F6FF}]/,'')
+    self.keyword = self.keyword.strip.gsub(/\s+/, ' ').downcase
   end
 end

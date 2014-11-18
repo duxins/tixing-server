@@ -62,6 +62,9 @@ class Netease::MonitoringTest < ActiveSupport::TestCase
     assert_equal '关键词', create_monitoring('   关键词   ').keyword
     assert_equal '关 键 词', create_monitoring('关    键  词').keyword
     assert_equal 'keyword', create_monitoring('Keyword').keyword
+    # 删除 emoji 字符
+    # http://stackoverflow.com/a/24674266/575163
+    assert_equal '关键词', create_monitoring("关键词\u{1F600}").keyword
   end
 
   test 'should not save with invalid keyword' do
