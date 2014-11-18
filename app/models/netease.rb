@@ -66,7 +66,7 @@ module Netease
 
           news['published_at'] = DateTime.parse(news['ptime'] + "+8")
           news['url'] = news['url_3w']
-          news['img'] = news['img_src']
+          news['img'] = news['imgsrc']
 
           news.select {|k, v| %w[docid title digest published_at url img].include? k }
         end

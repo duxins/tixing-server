@@ -2,6 +2,35 @@ require 'test_helper'
 
 class Netease::MonitoringTest < ActiveSupport::TestCase
   def setup
+    @freeze_time = DateTime.new(2014, 11, 18, 17, 50, 0 ,'+8')
+  end
+
+  test 'should return recent news along with the subscribers' do
+    Timecop.freeze(@freeze_time) do
+      Rails.cache.clear
+      Netease::Monitoring.create(user_id: 2, keyword: '本山传媒')
+      VCR.use_cassette('netease_recent_news_high') do
+        news =  Netease::Monitoring.check(priority: :high)
+        assert_equal 2, news.first[:users].first
+        assert_equal 1, news.count
+      end
+
+      Rails.cache.clear
+      Netease::Monitoring.create(user_id: 2, keyword: '本山')
+      VCR.use_cassette('netease_recent_news_high') do
+        news =  Netease::Monitoring.check(priority: :high)
+        assert_equal 1, news.first[:users].count
+      end
+
+      Rails.cache.clear
+      Netease::Monitoring.create(user_id: 3, keyword: '本山传媒')
+      VCR.use_cassette('netease_recent_news_high') do
+        news =  Netease::Monitoring.check(priority: :high)
+        assert_equal 2, news.first[:users].count
+        assert_equal 1, news.count
+      end
+
+    end
   end
 
   test 'should match' do

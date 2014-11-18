@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NeteaseTest < ActiveSupport::TestCase
+class Netease::NeteaseTest < ActiveSupport::TestCase
   def setup
     @freeze_time = DateTime.new(2014, 11, 18, 17, 50, 0 ,'+8')
     @news_count_high = 4
