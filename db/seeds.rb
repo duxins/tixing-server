@@ -9,17 +9,24 @@
 
 service_list = [
   {
-    id: Weibo::SERVICE_ID,
+    id: Weibo::SERVICE_ID,  #1
     name: '新浪微博',
     icon: 'weibo.png',
     url: '/service/weibo',
     description: '',
   },
   {
-    id: V2ex::SERVICE_ID,
+    id: V2ex::SERVICE_ID,    #2
     name: 'V2EX',
     icon: 'v2ex.png',
     url: '/service/v2ex',
+    description: '',
+  },
+  {
+    id: Netease::SERVICE_ID,  #3
+    name: '网易新闻',
+    icon: 'netease.png',
+    url: '/service/netease',
     description: '',
   }
 ];
