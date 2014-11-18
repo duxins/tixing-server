@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141116072654) do
+ActiveRecord::Schema.define(version: 20141117133911) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20141116072654) do
   add_index "installations", ["service_id"], name: "index_installations_on_service_id", using: :btree
   add_index "installations", ["user_id", "service_id"], name: "index_installations_on_user_id_and_service_id", unique: true, using: :btree
   add_index "installations", ["user_id"], name: "index_installations_on_user_id", using: :btree
+
+  create_table "netease_monitorings", force: true do |t|
+    t.integer  "user_id"
+    t.string   "keyword"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "netease_monitorings", ["user_id"], name: "index_netease_monitorings_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.string   "title"
