@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     post 'v2ex', to: 'v2ex#create'
     delete 'v2ex/:id', to: 'v2ex#destroy'
 
+    get 'netease', to: 'netease#index'
+    post 'netease', to: 'netease#create'
+    delete 'netease/:id', to: 'netease#destroy'
+
   end
 
   mount APIv1::API => '/'

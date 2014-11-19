@@ -1,0 +1,24 @@
+body[data-controller="netease"]{
+  padding-top: 40px;
+  background: #fff;
+
+  #keyword {
+    -webkit-appearance: caret;
+    border: 1px solid #ccc;
+  }
+
+  #keyword_list {
+    margin-top: 20px;
+  }
+
+  .keyword_item {
+    border-bottom: 1px solid #efefef;
+    padding: 10px 0;
+  }
+
+  .remove_button{
+    float: right;
+    margin-left: 20px;
+  }
+
+}
