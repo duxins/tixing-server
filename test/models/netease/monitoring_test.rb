@@ -74,6 +74,13 @@ class Netease::MonitoringTest < ActiveSupport::TestCase
     assert_not Netease::Monitoring.new(keyword: ' a ').save
   end
 
+  test 'should not create more than 10 rules' do
+    10.times do |i|
+      assert Netease::Monitoring.new(keyword:"keyword-#{i}", user_id: 2).save
+    end
+    assert_not Netease::Monitoring.new(keyword:"keyword-11", user_id: 2).save
+  end
+
   test 'should not save when keyword exists' do
     Netease::Monitoring.create(user_id: 1, keyword: '关键词')
 
