@@ -4,7 +4,7 @@ class Netease::Monitoring < ActiveRecord::Base
   before_validation :format_keyword
   validates :keyword, presence: true, length: {maximum: 20, minimum: 2}, uniqueness: {scope: :user_id}
 
-  validate do
+  validate on: :create do
     errors.add(:base, '最多设置10条关键字') if Netease::Monitoring.where(user_id: self.user_id).count >= 10
   end
 

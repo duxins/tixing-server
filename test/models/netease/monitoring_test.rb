@@ -79,6 +79,8 @@ class Netease::MonitoringTest < ActiveSupport::TestCase
       assert Netease::Monitoring.new(keyword:"keyword-#{i}", user_id: 2).save
     end
     assert_not Netease::Monitoring.new(keyword:"keyword-11", user_id: 2).save
+    # should not validate on update
+    assert Netease::Monitoring.where(user_id: 2).first.update(keyword: 'keyword-11')
   end
 
   test 'should not save when keyword exists' do
