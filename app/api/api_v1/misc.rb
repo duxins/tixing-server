@@ -21,5 +21,15 @@ module APIv1
       end
     end
 
+    desc 'Leave a feedback'
+    params do
+      requires :content, type: String
+    end
+
+    post '/feedbacks' do
+      status 204
+      current_user.feedbacks.create(content: params[:content])
+    end
+
   end
 end
