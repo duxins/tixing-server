@@ -36,6 +36,15 @@ module APIv1
         current_user.notifications.delete(params[:id])
       end
 
+      desc 'Clear notifications'
+      params do
+        requires :until, type: Integer
+      end
+      delete '/' do
+        status 204
+        current_user.notifications.where('id <= ?', params[:until]).destroy_all
+      end
+
     end
   end
 end
