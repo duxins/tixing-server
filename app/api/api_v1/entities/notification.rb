@@ -8,6 +8,7 @@ module APIv1
       expose :message
       expose :thumb
       expose :url
+      expose :web_url
       expose :service, with: APIv1::Entities::Service
 
       expose :created_at, format_with: :iso_timestamp

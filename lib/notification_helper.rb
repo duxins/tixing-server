@@ -4,17 +4,18 @@ class NotificationHelper
     user_id = data[:user_id]
     service_id = data[:service_id]
     title = data[:title] || '消息提醒'
-    message = data[:message]
+    message = data[:message] || ''
     push_message = data[:push_message] || "#{title}:#{message}"
     thumb = data[:thumb] || ''
-    url = data[:url] || ''
+    web_url = data[:web_url] || ''
+    url = data[:url] || web_url
 
     user = User.find_by_id(user_id)
 
     return unless user
     return unless installation = user.installations.where(service_id: service_id).first
 
-    notification = Notification.create(user: user, service_id:service_id, thumb: thumb, url: url, title: title, message: message)
+    notification = Notification.create(user: user, service_id:service_id, thumb: thumb, url: url, web_url: web_url, title: title, message: message)
     return unless notification
 
     sound = installation.preferences[:sound] || user.sound
