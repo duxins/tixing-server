@@ -67,6 +67,7 @@ CREATE TABLE `installations` (
   `preferences` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_installations_on_user_id_and_service_id` (`user_id`,`service_id`),
   KEY `index_installations_on_user_id` (`user_id`),
@@ -356,7 +357,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-22 22:15:04
+-- Dump completed on 2014-11-23 11:46:45
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -406,4 +407,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141117133911');
 INSERT INTO schema_migrations (version) VALUES ('20141121070045');
 
 INSERT INTO schema_migrations (version) VALUES ('20141122141501');
+
+INSERT INTO schema_migrations (version) VALUES ('20141123034606');
 
