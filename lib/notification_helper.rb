@@ -14,6 +14,7 @@ class NotificationHelper
 
     return unless user
     return unless installation = user.installations.where(service_id: service_id).first
+    return if installation.enabled == false
 
     notification = Notification.create(user: user, service_id:service_id, thumb: thumb, url: url, web_url: web_url, title: title, message: message)
     return unless notification
