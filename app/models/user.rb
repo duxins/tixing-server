@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :installations
   has_many :feedbacks
-  has_many :services, -> { order 'installations.id ASC' }, through: :installations
+  has_many :services, -> { select('services.*, installations.enabled as enabled, installations.preferences as preferences').order 'installations.id ASC' }, through: :installations
 
   default_scope { where(disabled: false) }
   before_create :generate_token

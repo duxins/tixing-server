@@ -10,7 +10,21 @@ module APIv1
         "#{options[:env]['rack.url_scheme']}://#{options[:env]['HTTP_HOST']}#{service.url}"
       end
 
-      expose :description, if: {type: :full}
+      expose :sound, if: {type: :installed} do |service, options|
+        sound = preferences[:sound] if preferences
+        sound || options[:current_user].sound
+      end
+
+      expose :enabled, if: {type: :installed} do |service, options|
+        service.enabled
+      end
+
+      expose :description
+
+      def preferences
+        @preferences ||= YAML.load(object.preferences) if object.preferences
+      end
+
     end
   end
 end
