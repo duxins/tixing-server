@@ -236,6 +236,7 @@ CREATE TABLE `services` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `position` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -357,7 +358,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-23 11:46:45
+-- Dump completed on 2014-11-23 19:28:43
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -409,4 +410,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141121070045');
 INSERT INTO schema_migrations (version) VALUES ('20141122141501');
 
 INSERT INTO schema_migrations (version) VALUES ('20141123034606');
+
+INSERT INTO schema_migrations (version) VALUES ('20141123112748');
 
