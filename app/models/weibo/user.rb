@@ -4,6 +4,8 @@ class Weibo::User < ActiveRecord::Base
   has_many :followers, primary_key:'uid', foreign_key:'uid', class_name: "Weibo::Follower"
   scope :available, lambda { where('followers_count >?', 0).order('followers_count DESC') }
 
+  enum priority: [:low, :medium, :high]
+
   def followed_by?(user)
     self.followers.where(user: user).present?
   end
@@ -42,8 +44,10 @@ class Weibo::User < ActiveRecord::Base
   def self.fetch_weibo_user(name)
     url = %[#{ENV['weibo_api']}/user/#{URI.escape(name)}]
     begin
-      weibo_user = Weibo::User.request_api(url)
-      self.save_weibo_user(weibo_user)
+      Rails.cache.fetch(self.weibo_user_cache_key(name)) do
+        weibo_user = Weibo::User.request_api(url)
+        self.save_weibo_user(weibo_user)
+      end
     rescue => e
       Rails.logger.error("Weibo API error (/user/#{name}): #{e.message}")
 
@@ -61,11 +65,21 @@ class Weibo::User < ActiveRecord::Base
     user.name = weibo_user['name']
     user.avatar = weibo_user['avatar']
     user.metadata = weibo_user.to_yaml
+
+    if weibo_user['followers_count'] > 10000
+      user.priority = :high
+    elsif weibo_user['followers_count'] > 1000
+      user.priority = :medium
+    else
+      user.priority = :low
+    end
+
     if user.new_record?
       user.last_weibo_id = weibo_user['mid']
       user.last_checked_at = DateTime.now
     end
     user.save
+    Rails.cache.write(self.weibo_user_cache_key(user.name), user, expires_in:10.minutes)
     user
   end
 
