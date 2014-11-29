@@ -26,3 +26,7 @@ end
 every 3.minutes do
   rake 'v2ex:run'
 end
+
+every 3.minutes do
+  rake 'netease:run'
+end
