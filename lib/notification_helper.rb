@@ -9,6 +9,7 @@ class NotificationHelper
     thumb = data[:thumb] || ''
     web_url = data[:web_url] || ''
     url = data[:url] || web_url
+    ipad_url = data[:ipad_url]
 
     user = User.find_by_id(user_id)
 
@@ -16,7 +17,16 @@ class NotificationHelper
     return unless installation = user.installations.where(service_id: service_id).first
     return if installation.enabled == false
 
-    notification = Notification.create(user: user, service_id:service_id, thumb: thumb, url: url, web_url: web_url, title: title, message: message)
+    notification = Notification.create(
+        user: user,
+        service_id:service_id,
+        thumb: thumb,
+        url: url,
+        web_url: web_url,
+        ipad_url: ipad_url,
+        title: title,
+        message: message
+    )
     return unless notification
 
     sound = installation.preferences[:sound] || user.sound

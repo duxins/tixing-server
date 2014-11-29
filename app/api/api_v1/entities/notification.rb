@@ -7,7 +7,15 @@ module APIv1
       expose :title
       expose :message
       expose :thumb
-      expose :url
+
+      expose :url do |notification, options|
+        if options[:env]['HTTP_USER_AGENT'] =~ /iPad/ and notification.ipad_url.present?
+          notification.ipad_url
+        else
+          notification.url
+        end
+      end
+
       expose :web_url
       expose :service, with: APIv1::Entities::Service
 

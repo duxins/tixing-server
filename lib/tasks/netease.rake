@@ -20,7 +20,8 @@ namespace :netease do
           push_message: "网易新闻: #{news['title']} #{news['digest']} 详情 >>",
 
           url: "newsapp://doc/#{news['docid']}",
-          web_url: news['url']
+          web_url: news['url'],
+          ipad_url: news['url'],
         )
       end
     end
