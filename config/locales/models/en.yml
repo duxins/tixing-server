@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    errors:
+      models:
+        netease/monitoring:
+          attributes:
+            base:
+              to_many: The maximum keyword limit has been reached (%{limit})
+

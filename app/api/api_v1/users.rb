@@ -17,7 +17,7 @@ module APIv1
       if user && user.authenticate(params[:password])
         present user, with: APIv1::Entities::User, type: 'full'
       else
-        error!({error:'Incorrect username or password.', code:1001}, 400)
+        error!({error:I18n.t(:incorrect_password), code:1001}, 400)
       end
     end
 

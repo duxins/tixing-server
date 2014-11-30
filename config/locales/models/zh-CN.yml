@@ -1,0 +1,16 @@
+zh-CN:
+  activerecord:
+    models:
+      user: 用户
+    attributes:
+      v2ex/monitoring:
+        keyword: 关键词
+      netease/monitoring:
+        keyword: 关键词
+    errors:
+      models:
+        netease/monitoring:
+          attributes:
+            base:
+              to_many: 最多设置%{limit}条关键词
+
