@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'nprogress-rails'
 
+gem 'rails_admin'
 
 group :development do
   gem 'mina'
