@@ -1,8 +1,39 @@
 zh-CN:
   activerecord:
     models:
+      device: 设备
+      notification: 提醒
+      service: 服务
       user: 用户
+
+      weibo/follower: 粉丝
+      weibo/user: 用户
+      v2ex/monitoring: 监控规则 - V2EX
+      netease/monitoring: 监控规则 - 网易新闻
+
     attributes:
+      notification:
+        title: 标题
+        message: 内容
+        user: 用户
+        thumb: 图标
+        service: 服务
+        sound: 提示音
+        url: 默认链接
+        web_url: 网页链接
+        ipad_url: iPad链接
+        created_at: 发送时间
+      weibo/user:
+        uid: 微博ID
+        name: 用户名
+        followers_count: 粉丝数
+        priority: 监控优先级
+        last_weibo_id: 上条微博ID
+        last_checked_at: 上次抓取时间
+      weibo/follower:
+        weibo_user: 微博用户名
+        user: 用户
+        keyword: 关键词
       v2ex/monitoring:
         keyword: 关键词
       netease/monitoring:

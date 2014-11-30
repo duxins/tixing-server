@@ -1,10 +1,44 @@
 require 'open-uri'
 
 class Weibo::User < ActiveRecord::Base
-  has_many :followers, primary_key:'uid', foreign_key:'uid', class_name: "Weibo::Follower"
+  has_many :followers, primary_key:'uid', foreign_key:'uid', class_name: "Weibo::Follower", dependent: :destroy
   scope :available, lambda { where('followers_count >?', 0).order('followers_count DESC') }
 
   enum priority: [:low, :medium, :high]
+
+  rails_admin do
+    list do
+      field :id do
+        column_width 80
+      end
+      field :uid do
+        column_width 100
+      end
+
+      field :name do
+        formatted_value do
+          bindings[:view].link_to( "http://www.weibo.com/u/" + bindings[:object].uid.to_s, target: '_blank') do
+            bindings[:view].tag(:img , src: bindings[:object].avatar, width: 20) << " #{value}"
+          end
+        end
+      end
+
+      field :followers_count do
+        column_width 50
+      end
+
+      field :priority do
+        column_width 80
+      end
+
+      field :last_weibo_id do
+        column_width 140
+      end
+
+      field :last_checked_at
+      field :created_at
+    end
+  end
 
   def followed_by?(user)
     self.followers.where(user: user).present?

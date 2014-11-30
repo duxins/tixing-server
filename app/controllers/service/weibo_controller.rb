@@ -5,7 +5,7 @@ class Service::WeiboController < Service::BaseServiceController
   end
 
   def following
-    following = Weibo::Follower.includes(:weibo_user).where(user: current_user).map(&:weibo_user)
+    following = Weibo::Follower.includes(:weibo_user).where(user: current_user).map(&:weibo_user).compact
     render json:[] if following.nil?
     render json:following.as_json(only: [:id, :name, :avatar])
   end
