@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'welcome#index'
+
   namespace :service do
     get 'weibo', to: 'weibo#index'
 
