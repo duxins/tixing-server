@@ -76,6 +76,65 @@ CREATE TABLE `installations` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `jingdong_monitorings`
+--
+
+DROP TABLE IF EXISTS `jingdong_monitorings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jingdong_monitorings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `price` decimal(8,1) DEFAULT NULL,
+  `threshold` decimal(10,0) DEFAULT NULL,
+  `disabled` tinyint(1) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_jingdong_monitorings_on_product_id_and_user_id` (`product_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `jingdong_prices`
+--
+
+DROP TABLE IF EXISTS `jingdong_prices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jingdong_prices` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL,
+  `price` decimal(8,1) DEFAULT NULL,
+  `promotion` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_jingdong_prices_on_product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `jingdong_products`
+--
+
+DROP TABLE IF EXISTS `jingdong_products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jingdong_products` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `price` decimal(8,1) DEFAULT NULL,
+  `monitorings_count` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `netease_monitorings`
 --
 
@@ -360,7 +419,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-29 21:33:16
+-- Dump completed on 2014-12-01 17:25:18
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -418,4 +477,10 @@ INSERT INTO schema_migrations (version) VALUES ('20141123112748');
 INSERT INTO schema_migrations (version) VALUES ('20141129085454');
 
 INSERT INTO schema_migrations (version) VALUES ('20141129133304');
+
+INSERT INTO schema_migrations (version) VALUES ('20141201013919');
+
+INSERT INTO schema_migrations (version) VALUES ('20141201074858');
+
+INSERT INTO schema_migrations (version) VALUES ('20141201082525');
 
