@@ -67,9 +67,9 @@ class Weibo::User < ActiveRecord::Base
   end
 
   def self.request_api(url)
-    json = Timeout::timeout(5) do
+    json = Timeout::timeout(10) do
       Curl::Easy.perform(url) do |curl|
-        curl.connect_timeout = 5
+        curl.connect_timeout = 10
       end.body_str
     end
     JSON.parse(json)
