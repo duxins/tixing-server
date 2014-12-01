@@ -86,7 +86,6 @@ CREATE TABLE `jingdong_monitorings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `price` decimal(8,1) DEFAULT NULL,
   `threshold` decimal(10,0) DEFAULT NULL,
   `disabled` tinyint(1) DEFAULT '0',
   `created_at` datetime DEFAULT NULL,
@@ -419,7 +418,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-01 17:25:18
+-- Dump completed on 2014-12-01 18:23:46
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
