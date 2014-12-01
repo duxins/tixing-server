@@ -43,5 +43,5 @@ zh-CN:
         netease/monitoring:
           attributes:
             base:
-              to_many: 最多设置%{limit}条关键词
+              too_many: 最多设置%{limit}条关键词
 
