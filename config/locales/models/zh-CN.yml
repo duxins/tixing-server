@@ -10,6 +10,9 @@ zh-CN:
       weibo/user: 用户
       v2ex/monitoring: 监控规则 - V2EX
       netease/monitoring: 监控规则 - 网易新闻
+      jingdong/product: 商品
+      jingdong/price: 价格
+      jingdong/monitoring: 监控规则 - 京东
 
     attributes:
       notification:
@@ -38,9 +41,15 @@ zh-CN:
         keyword: 关键词
       netease/monitoring:
         keyword: 关键词
+      jingdong/monitoring:
+        threshold: 阈值
     errors:
       models:
         netease/monitoring:
+          attributes:
+            base:
+              too_many: 最多设置%{limit}条关键词
+        jingdong/monitoring:
           attributes:
             base:
               too_many: 最多设置%{limit}条关键词

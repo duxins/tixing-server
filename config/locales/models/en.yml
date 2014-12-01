@@ -6,4 +6,8 @@ en:
           attributes:
             base:
               too_many: The maximum keyword limit has been reached (%{limit})
+        jingdong/monitoring:
+          attributes:
+            base:
+              too_many: The maximum product limit has been reached (%{limit})
 
