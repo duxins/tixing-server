@@ -4,8 +4,8 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+iphone:
+  id: 1023437
+  name: 苹果（APPLE）iPhone 5s 16G版 4G手机（银色）TD-LTE/TD-SCDMA/GSM
+  price: 4188.00
+  image: 'g13/M04/0B/05/rBEhUlIxZ_YIAAAAAAF5I4l8Mw8AADErgIijHsAAXk7281.jpg'
