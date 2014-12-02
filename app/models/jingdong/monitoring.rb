@@ -1,6 +1,7 @@
 class Jingdong::Monitoring < ActiveRecord::Base
   belongs_to :product, class_name: 'Jingdong::Product', counter_cache: true
   belongs_to :user, class_name: '::User'
+  default_scope ->{order(id: :desc)}
 
   validates :threshold, presence:true, numericality: { greater_than: 0}
 

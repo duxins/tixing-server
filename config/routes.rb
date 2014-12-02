@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     # 网易新闻
     resources :netease, except: [:new, :show]
 
+    # 京东降价提醒
+    resources :jingdong, except: [:new, :show]
+    get 'jingdong/search/:id', to: 'jingdong#search'
+
   end
 
   mount APIv1::API => '/'

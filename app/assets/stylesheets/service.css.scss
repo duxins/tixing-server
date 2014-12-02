@@ -8,6 +8,15 @@ html{
   -webkit-user-select: none;
 }
 
+.borderless-input {
+  -webkit-appearance: caret;
+  border: 1px solid #ccc;
+}
+
+.centered {
+  text-align: center;
+}
+
 $nprogress-color: #21A0F5;
 $nprogress-height: 3px;
 
