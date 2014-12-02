@@ -6,6 +6,7 @@
 #= require nprogress-ajax
 #= require_self
 #= require_tree ./service
+#= require bootstrap-keyboard-fix
 
 window.Service = (->
   version = 1.0

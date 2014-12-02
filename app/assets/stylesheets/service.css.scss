@@ -17,6 +17,11 @@ html{
   text-align: center;
 }
 
+.modal-ios {
+  position: absolute;
+  overflow: visible
+}
+
 $nprogress-color: #21A0F5;
 $nprogress-height: 3px;
 
