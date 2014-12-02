@@ -1,6 +1,6 @@
 class Jingdong::Product < ActiveRecord::Base
-  has_many :prices, class_name: 'Jingdong::Price'
-  has_many :monitorings, :class_name => 'Jingdong::Monitoring'
+  has_many :prices, class_name: 'Jingdong::Price', dependent: :delete_all
+  has_many :monitorings, :class_name => 'Jingdong::Monitoring', dependent: :delete_all
 
   def self.fetch(id)
     product = self.find_by_id(id)
