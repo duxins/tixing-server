@@ -18,3 +18,12 @@ every 10.minutes do
   rake 'netease:run[medium]'
 end
 
+# 京东价格抓取
+every 1.hour do
+  rake 'jingdong:run'
+end
+
+# 清理商品
+every 1.day, :at => '4:30 am' do
+  rake 'jingdong:cleanup'
+end
