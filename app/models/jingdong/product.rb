@@ -1,6 +1,7 @@
 class Jingdong::Product < ActiveRecord::Base
   has_many :prices, class_name: 'Jingdong::Price', dependent: :delete_all
   has_many :monitorings, :class_name => 'Jingdong::Monitoring', dependent: :delete_all
+  scope :available, lambda { where('monitorings_count >?', 0).order('monitorings_count DESC') }
 
   def self.fetch(id)
     product = self.find_by_id(id)
