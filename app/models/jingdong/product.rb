@@ -47,6 +47,14 @@ class Jingdong::Product < ActiveRecord::Base
     price
   end
 
+  def url
+    "openapp.jdmobile://virtual?params=" + URI.escape('{"category":"jump","des":"productDetail","skuId":"'+self.id.to_s+'","sourceType":"JSHOP_SOURCE_TYPE","sourceValue":"JSHOP_SOURCE_VALUE"}')
+  end
+
+  def web_url
+    "http://m.jd.com/product/#{self.id}.html"
+  end
+
   def image
     image = read_attribute(:image)
     return nil if image.nil?
