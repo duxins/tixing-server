@@ -42,6 +42,8 @@ module Netease
 
       begin
 
+        Rails.logger.info "[NETEASE] Started GET #{url}"
+
         c = Curl::Easy.perform(url) do |curl|
           curl.headers['User-Agent'] = 'tixing'
           curl.connect_timeout = 5
@@ -57,8 +59,9 @@ module Netease
 
         collection.select! do |news|
           time_diff = DateTime.now.to_i - DateTime.parse(news['ptime'] + "+8").to_i
-          # 只保留1小时内发布的新闻
-          time_diff < 3600 and news['url'].present? and not Rails.cache.read(self.cache_key news['docid'])
+          next if Rails.cache.read(self.cache_key news['docid'])
+          Rails.logger.info "[NETEASE] Fetched News: #{news['title']}|#{news['docid']}|#{news['ptime']}|#{time_diff}"
+          time_diff < 3600 and news['url'].present?
         end
 
         collection.map! do |news|
@@ -68,12 +71,13 @@ module Netease
           news['url'] = news['url_3w']
           news['img'] = news['imgsrc']
 
+          # 过滤新闻专题
           news.select {|k, v| %w[docid title digest published_at url img].include? k }
         end
 
         collection
       rescue => e
-        Rails.logger.error("netease API error: #{url}, #{e.message}")
+        Rails.logger.error("[NETEASE] API Error: #{url}, #{e.message}")
         []
       end
 
