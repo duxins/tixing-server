@@ -3,7 +3,7 @@
   <div class="media">
     <div class="media-left">
       <img data-src="<%= monitoring.product.image %>" class="center-block product_thumb">
-      <span class="label label-warning center-block">¥ <%= monitoring.product.price.to_i %></span>
+      <span class="label label-warning center-block">¥ <%= monitoring.product.price.round 1 %></span>
     </div>
     <div class="media-body">
       <h5 class="media-heading"><%= monitoring.product.name %></h5>
