@@ -23,7 +23,17 @@ every 1.hour do
   rake 'jingdong:run'
 end
 
-# 清理商品
+# 清理京东商品
 every 1.day, :at => '4:30 am' do
   rake 'jingdong:cleanup'
+end
+
+# 顺丰优选
+every 80.minutes do
+  rake 'shunfeng:run'
+end
+
+# 清理顺丰商品
+every 1.day, :at => '5:30 am' do
+  rake 'shunfeng:cleanup'
 end
