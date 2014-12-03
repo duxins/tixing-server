@@ -4,7 +4,7 @@ namespace :jingdong do
   desc '开始抓取京东商城价格'
   task :run => :environment do
     products =  Jingdong::Product.available.pluck(:id)
-    return if products.empty?
+    next if products.empty?
     products.each do |id|
       JingdongWorker.perform_async(id)
     end
