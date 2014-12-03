@@ -1,0 +1,26 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+
+#http://www.sfbest.com/html/products/34/1800033005.html
+shrimp:
+  id: 1800033005
+  name: 阿根廷红虾10/20 2000g
+  price: 199
+  image: 'http://p02.sfbest.com/2013/1500012174/middle_1500012174_1_1.jpg'
+
+#http://www.sfbest.com/html/products/19/1800018775.html'
+beef:
+  id: 1800018775
+  name: 科尔沁 精品肥牛 400g
+  price: 29.9
+
+#http://www.sfbest.com/html/products/3/1200002309.html'
+vc:
+  id: 1200002309
+  name: 养生堂 天然维生素C咀嚼片 76.5g*90片/瓶
+  price: 102.8
+

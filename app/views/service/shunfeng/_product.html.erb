@@ -1,0 +1,16 @@
+<% @monitorings.each do |monitoring| %>
+<div class="product_item col-xs-12">
+  <div class="media">
+    <div class="media-left">
+      <img data-src="<%= monitoring.product.image %>" class="center-block product_thumb">
+      <span class="label label-warning center-block">¥ <%= monitoring.product.price.round(1) %></span>
+    </div>
+    <div class="media-body">
+      <h5 class="media-heading"><%= monitoring.product.name %></h5>
+      <p>提醒价格: <span class="label <%= monitoring.disabled? ? 'label-default':'label-success' %>">¥ <%= monitoring.threshold %></span> &nbsp;&nbsp; </p>
+      <button class="edit_button btn btn-default btn-xs" data-id="<%= monitoring.id%>"><span class="glyphicon glyphicon-pencil"></span> 修改</button> &nbsp;&nbsp;
+      <button class="remove_button btn btn-default btn-xs" data-id="<%= monitoring.id%>"><span class="glyphicon glyphicon-trash"></span> 删除</button>
+    </div>
+  </div>
+</div>
+<% end %>

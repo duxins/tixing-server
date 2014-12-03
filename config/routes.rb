@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     resources :jingdong, except: [:new, :show]
     get 'jingdong/search/:id', to: 'jingdong#search'
 
+    # 顺丰优选
+    resources :shunfeng, except: [:new, :show]
+    get 'shunfeng/search/:id', to: 'shunfeng#search'
+
   end
 
   mount APIv1::API => '/'

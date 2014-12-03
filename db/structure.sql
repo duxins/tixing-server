@@ -321,6 +321,47 @@ CREATE TABLE `settings` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `shunfeng_monitorings`
+--
+
+DROP TABLE IF EXISTS `shunfeng_monitorings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shunfeng_monitorings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` bigint(20) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `threshold` decimal(10,0) DEFAULT NULL,
+  `disabled` tinyint(1) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index_shunfeng_monitorings_on_product_id_and_user_id` (`product_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `shunfeng_products`
+--
+
+DROP TABLE IF EXISTS `shunfeng_products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `shunfeng_products` (
+  `id` bigint(20) NOT NULL,
+  `sku` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `promotion` varchar(255) DEFAULT NULL,
+  `price` decimal(8,1) DEFAULT NULL,
+  `monitorings_count` int(11) DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `users`
 --
 
@@ -418,7 +459,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-01 18:23:46
+-- Dump completed on 2014-12-03 15:41:22
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -482,4 +523,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141201013919');
 INSERT INTO schema_migrations (version) VALUES ('20141201074858');
 
 INSERT INTO schema_migrations (version) VALUES ('20141201082525');
+
+INSERT INTO schema_migrations (version) VALUES ('20141203035556');
+
+INSERT INTO schema_migrations (version) VALUES ('20141203040411');
 
