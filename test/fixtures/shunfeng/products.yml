@@ -10,6 +10,7 @@ shrimp:
   id: 1800033005
   name: 阿根廷红虾10/20 2000g
   price: 199
+  image: 'http://p02.sfbest.com/2013/1500012174/middle_1500012174_1_1.jpg'
 
 #http://www.sfbest.com/html/products/19/1800018775.html'
 beef:

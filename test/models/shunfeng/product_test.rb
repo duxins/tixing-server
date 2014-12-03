@@ -15,6 +15,11 @@ class Shunfeng::ProductTest < ActiveSupport::TestCase
     end
   end
 
+  test 'should return proper thumb URL' do
+    assert_equal 'http://p02.sfbest.com/2013/1500012174/thumb_1500012174_1_1.jpg', shunfeng_products(:shrimp).thumb
+    assert_not shunfeng_products(:vc).thumb
+  end
+
   test 'should return nil when there is a network problem' do
     stub_request(:any, /sfbest.com/).to_timeout
     product = Shunfeng::Product.fetch(1800030969)
@@ -27,7 +32,7 @@ class Shunfeng::ProductTest < ActiveSupport::TestCase
     assert Shunfeng::Product.create(id: 2).errors[:price]
   end
 
-  test 'should return correct URL' do
+  test 'should return correct product URL' do
     assert_equal shunfeng_products(:beef).url, 'http://www.sfbest.com/html/products/19/1800018775.html'
     assert_equal shunfeng_products(:vc).url, 'http://www.sfbest.com/html/products/3/1200002309.html'
     assert_equal shunfeng_products(:shrimp).url, 'http://www.sfbest.com/html/products/34/1800033005.html'

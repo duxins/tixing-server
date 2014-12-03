@@ -51,8 +51,8 @@ class Shunfeng::Product < ActiveRecord::Base
   end
 
   def thumb
-    image = self.image
-    image.gsub(/middle/, 'thumb')
+    return nil unless self.image.present?
+    self.image.gsub(/middle/, 'thumb')
   end
 
   def url
