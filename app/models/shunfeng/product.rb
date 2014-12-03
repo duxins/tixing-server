@@ -20,7 +20,7 @@ class Shunfeng::Product < ActiveRecord::Base
       raise "[id: #{id}] Sku not found: #{url}" if sku.nil?
       doc = Nokogiri::parse(html)
       name = doc.css('h1').text
-      image = doc.css('#zoom-jpg img:first').attr('src')
+      image = doc.css('#zoom-jpg img:first').attr('src').text.strip
       price = self.fetch_price(sku)
       self.create(id: id, name: name, image: image, price: price, sku: sku)
     rescue => e
