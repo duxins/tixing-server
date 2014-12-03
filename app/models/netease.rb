@@ -31,13 +31,13 @@ module Netease
       end
 
       categories.each do |k, v|
-        list.concat(self.fetch_news_list(v))
+        list.concat(self.fetch_latest_news(v))
       end
 
       list
     end
 
-    def fetch_news_list(cid)
+    def fetch_latest_news(cid)
       url = "http://c.3g.163.com/nc/article/list/#{cid}/0-20.html"
 
       begin
@@ -54,33 +54,36 @@ module Netease
         raise "#{c.body_str[0..30]}" unless json.has_key?(cid)
 
         collection = json[cid]
-
         collection.sort_by! {|news|DateTime.parse(news['ptime'])}.reverse!
 
-        collection.select! do |news|
-          time_diff = DateTime.now.to_i - DateTime.parse(news['ptime'] + "+8").to_i
-          next if Rails.cache.read(self.cache_key news['docid'])
-          Rails.logger.info "[NETEASE] Fetched News: #{news['title']}|#{news['docid']}|#{news['ptime']}|#{time_diff}"
-          time_diff < 3600 and news['url'].present?
-        end
+        latest_news = []
 
-        collection.map! do |news|
-          Rails.cache.write(self.cache_key(news['docid']), true, expires_in: 2.hour)
+        collection.each do |news|
+          next if Rails.cache.read(self.cache_key news['docid'])
+          Rails.cache.write(self.cache_key(news['docid']), true, expires_in: 2.days)
+
+          time_diff = DateTime.now.to_i - DateTime.parse(news['ptime'] + "+8").to_i
+          Rails.logger.info "[NETEASE] Fetched News: #{news['title']}|#{news['docid']}|#{news['ptime']}|#{time_diff}"
+
+          # 过滤专题新闻，或者一小时前发布的新闻
+          next if time_diff > 3600 or news['url'].nil?
 
           news['published_at'] = DateTime.parse(news['ptime'] + "+8")
           news['url'] = news['url_3w']
           news['img'] = news['imgsrc']
 
-          # 过滤新闻专题
+          # 过滤无用字段
           news.select {|k, v| %w[docid title digest published_at url img].include? k }
+          latest_news << news
         end
 
-        collection
+        Rails.logger.info "[NETEASE] Found #{latest_news.count} latest news" unless latest_news.empty?
+
+        latest_news
       rescue => e
         Rails.logger.error("[NETEASE] API Error: #{url}, #{e.message}")
         []
       end
-
     end
 
     def cache_key (id)
@@ -88,5 +91,4 @@ module Netease
     end
 
   end
-
 end
