@@ -38,7 +38,7 @@ module Netease
     end
 
     def fetch_latest_news(cid)
-      url = "http://c.3g.163.com/nc/article/list/#{cid}/0-20.html"
+      url = "http://c.3g.163.com/nc/article/list/#{cid}/0-40.html"
 
       begin
 
@@ -66,14 +66,14 @@ module Netease
           Rails.logger.info "[NETEASE] Fetched News: #{news['title']}|#{news['docid']}|#{news['ptime']}|#{time_diff}"
 
           # 过滤专题新闻，或者一小时前发布的新闻
-          next if time_diff > 3600 or news['url'].nil?
+          next if time_diff > 7200 or news['url'].nil?
 
           news['published_at'] = DateTime.parse(news['ptime'] + "+8")
           news['url'] = news['url_3w']
           news['img'] = news['imgsrc']
 
           # 过滤无用字段
-          news.select {|k, v| %w[docid title digest published_at url img].include? k }
+          news.select! {|k, v| %w[docid title digest published_at url img source].include? k }
           latest_news << news
         end
 

@@ -2,9 +2,9 @@ require 'test_helper'
 
 class Netease::NeteaseTest < ActiveSupport::TestCase
   def setup
-    @freeze_time = DateTime.new(2014, 11, 18, 17, 50, 0 ,'+8')
-    @news_count_high = 4
-    @news_count_medium = 2
+    @freeze_time = DateTime.new(2014, 12, 3, 21, 0, 0 ,'+8')
+    @news_count_high = 17
+    @news_count_medium = 5
   end
 
   test 'service_id should equal 3' do
