@@ -7,6 +7,7 @@
 #= require_self
 #= require_tree ./service
 #= require bootstrap-keyboard-fix
+#= require jquery.unveil
 
 window.Service = (->
   version = 1.0
