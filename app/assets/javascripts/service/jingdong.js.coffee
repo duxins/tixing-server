@@ -37,7 +37,7 @@ Service.Jingdong = (->
   refreshProductList = ->
     url = baseURL + '?partial=1'
     $('#product_list').load(url, ->
-      $('img').unveil()
+      $('img').unveil(200)
     )
 
   scanHandler = (e)->
@@ -54,7 +54,7 @@ Service.Jingdong = (->
     $('#product_list').on 'click', '.edit_button', editHandler
     $('#product_list').on 'click', '.remove_button', removeHandler
     $('#product_number').blur searchHandler
-    $('#product_list img').unveil()
+    $('#product_list img').unveil(200)
 
   refresh: ->
     refreshProductList()
