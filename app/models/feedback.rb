@@ -6,6 +6,6 @@ class Feedback < ActiveRecord::Base
 
 private
   def send_notification_email
-    FeedbackMailer.delay.notification_email(self)
+    FeedbackMailer.delay.notification_email(self) if Rails.env.production?
   end
 end
