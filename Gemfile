@@ -45,6 +45,7 @@ group :development do
   gem 'mina-sidekiq'
   gem 'spring'
   gem 'quiet_assets'
+  gem 'letter_opener'
 end
 
 group :production do

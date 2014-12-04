@@ -1,0 +1,6 @@
+<div style="border-bottom:1px dashed #ddd; padding-bottom: 20px;">
+  Date: <%= @feedback.created_at.in_time_zone(8).strftime('%Y-%m-%d %H:%M:%S') %><br><br>
+  From: <strong><%= @user.name %></strong>  - <%= @user.id %>
+</div>
+
+<p> <%= @feedback.content %> </p>
