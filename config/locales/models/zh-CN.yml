@@ -45,6 +45,10 @@ zh-CN:
         threshold: 阈值
     errors:
       models:
+        weibo/follower:
+          attributes:
+            base:
+              taken: 你已经关注过该用户
         netease/monitoring:
           attributes:
             base:

@@ -420,6 +420,7 @@ CREATE TABLE `weibo_followers` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `index_weibo_followers_on_uid_and_user_id` (`uid`,`user_id`),
   KEY `index_weibo_followers_on_user_id` (`user_id`),
   KEY `index_weibo_followers_on_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -460,7 +461,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-04 10:14:43
+-- Dump completed on 2014-12-04 22:24:31
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -530,4 +531,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141203035556');
 INSERT INTO schema_migrations (version) VALUES ('20141203040411');
 
 INSERT INTO schema_migrations (version) VALUES ('20141204021430');
+
+INSERT INTO schema_migrations (version) VALUES ('20141204142341');
 

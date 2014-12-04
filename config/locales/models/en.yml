@@ -2,6 +2,10 @@ en:
   activerecord:
     errors:
       models:
+        weibo/follower:
+          attributes:
+            base:
+              taken: You have been following that user
         netease/monitoring:
           attributes:
             base:
