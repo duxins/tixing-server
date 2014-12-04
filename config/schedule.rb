@@ -3,6 +3,11 @@ every 5.minutes do
   rake 'weibo:run'
 end
 
+# 清理没人关注的微博用户
+every 2.hours do
+  rake 'weibo:cleanup'
+end
+
 # V2EX
 every 3.minutes do
   rake 'v2ex:run'
