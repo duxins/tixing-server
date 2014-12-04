@@ -3,10 +3,8 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   namespace :service do
-    get 'weibo', to: 'weibo#index'
-
     # Weibo
-    get 'weibo/following',        to: 'weibo#following'
+    get 'weibo', to: 'weibo#index'
     put 'weibo/following/:name',  to: 'weibo#follow'
     delete 'weibo/following/:id', to: 'weibo#unfollow'
 

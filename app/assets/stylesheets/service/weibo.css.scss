@@ -2,12 +2,6 @@ body[data-controller='weibo'] {
   padding: 40px 0;
   background: #fff;
 
-  .vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-  }
-
   input[type=text], input[type=search] {
     -webkit-appearance: caret;
     border: 1px solid #ccc;
@@ -17,6 +11,7 @@ body[data-controller='weibo'] {
     margin-top:20px;
 
     .unfollow-button {
+      margin-top: 10px;
       float: right;
     }
 
@@ -33,11 +28,8 @@ body[data-controller='weibo'] {
     }
 
     .avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 4px / 4px;
-      vertical-align: middle;
-
+      width: 40px;
+      height: 40px;
     }
   }
 }

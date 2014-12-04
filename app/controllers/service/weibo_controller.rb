@@ -1,33 +1,38 @@
 class Service::WeiboController < Service::BaseServiceController
   before_action :authorize!
+  rescue_from Weibo::User::NotFound, with: :show_errors
+  rescue_from Weibo::User::APIError, with: :show_errors
+  rescue_from ActiveRecord::RecordInvalid, with: :show_errors
 
   def index
-  end
-
-  def following
-    following = Weibo::Follower.includes(:weibo_user).where(user: current_user).map(&:weibo_user).compact
-    render json:[] if following.nil?
-    render json:following.as_json(only: [:id, :name, :avatar])
+    if params[:partial]
+      @following = Weibo::Follower.includes(:weibo_user).where(user: current_user).map(&:weibo_user).compact
+      render partial: 'user_list'
+    end
   end
 
   def follow
-    begin
-      raise '你关注的人已经够多啦！' if Weibo::Follower.where(user:current_user).count > 5
-      @user = Weibo::User.fetch_weibo_user(params[:name])
-      raise '你已经关注过该用户' if @user.followed_by?(current_user)
-      Weibo::Follower.create(user: current_user, weibo_user: @user)
-      render json: @user.as_json(only: [:id, :name, :avatar])
-    rescue => e
-      render json: {error: {message: e.message} }
-    end
+    @user = Weibo::User.fetch_weibo_user(params[:name])
+    @user.followers.create!(user: current_user)
+    render nothing: true
   end
 
   def unfollow
     @user = Weibo::User.find_by_id(params[:id])
     @user.followers.where(user: current_user).destroy_all()
-    render json: {}
+    render nothing: true
   end
 
 private
-
+  def show_errors(exception)
+    error = case exception.class.to_s
+                when 'Weibo::User::NotFound'
+                  '没有找到该用户'
+                when 'ActiveRecord::RecordInvalid'
+                  exception.record.errors.full_messages.first
+                else
+                  '系统繁忙，请稍后再试'
+              end
+    render json: {error: {message: error}}
+  end
 end

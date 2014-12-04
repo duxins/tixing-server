@@ -1,0 +1,9 @@
+- @following.each do |user|
+  .col-xs-12.col-sm-6.col-md-4.user_container
+    .user_item
+      .row
+        .col-xs-12
+          == image_tag user.avatar, class: 'avatar'
+          span.name
+            == user.name
+          input.btn.btn-danger.btn-xs.unfollow-button type='button' data-user-id='#{user.id}' value='取消关注'
