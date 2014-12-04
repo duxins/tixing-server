@@ -172,6 +172,7 @@ CREATE TABLE `notifications` (
   `service_id` int(11) DEFAULT NULL,
   `web_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `ipad_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `highlight` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`),
   KEY `index_notifications_on_deleted_at` (`deleted_at`),
@@ -459,7 +460,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-03 15:41:22
+-- Dump completed on 2014-12-04 10:14:43
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -527,4 +528,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141201082525');
 INSERT INTO schema_migrations (version) VALUES ('20141203035556');
 
 INSERT INTO schema_migrations (version) VALUES ('20141203040411');
+
+INSERT INTO schema_migrations (version) VALUES ('20141204021430');
 

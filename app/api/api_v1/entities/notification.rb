@@ -6,6 +6,7 @@ module APIv1
       expose :id
       expose :title
       expose :message
+      expose :highlight
       expose :thumb
 
       expose :url do |notification, options|
