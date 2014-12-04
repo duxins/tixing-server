@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:5555/user/%E6%96%B0%E6%B5%AA%E8%B4%A2%E7%BB%8F
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '948'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJpZCI6MTYzODc4Mjk0NywibmFtZSI6IuaWsOa1qui0oue7jyIsImRlc2Ny
+        aXB0aW9uIjoi5paw5rWq6LSi57uP5o+Q5L6bNyoyNOWwj+aXtui0oue7j+i1
+        hOiur+WPiuWFqOeQg+mHkeiejeW4guWcuuaKpeS7tyzopobnm5bogqHnpajj
+        gIHlgLrliLjjgIHln7rph5HjgIHmnJ/otKfjgIHkv6HmiZjjgIHnkIbotKLj
+        gIHnrqHnkIbnrYnlpJrnp43pnaLlkJHkuKrkurrlkozkvIHkuJrnmoTmnI3l
+        iqHjgIIiLCJkb21haW4iOiJmaW5hbmNlIiwiYXZhdGFyIjoiaHR0cDovL3Rw
+        NC5zaW5haW1nLmNuLzE2Mzg3ODI5NDcvMTgwLzU3MTAwNTc2NzkvMSIsImdl
+        bmRlciI6Im0iLCJmb2xsb3dlcnNfY291bnQiOjEyMDg0NTYwLCJjcmVhdGVk
+        X2F0IjoiMjAwOS0wOC0yOFQxNjozNDozOSswODowMCIsIm1pZCI6IjM3ODQx
+        NTg3MzgyMTc5NzYiLCJ0ZXh0Ijoi44CQ5Yac5Lia6YOo77ya5YWo5Zu95Yac
+        5p2R5om/5YyF6ICV5Zyw5rWB6L2s6Z2i56ev5Y2H6IezMjguOCXjgJHlhpzk
+        uJrpg6jpg6jplb/pn6nplb/otYs05pel6KGo56S677yM5oiq6IezMjAxNOW5
+        tDbmnIjlupXvvIzlhajlm73lhpzmnZHmib/ljIXogJXlnLDmtYHovazpnaLn
+        p6/ovr4zLjjkur/kuqnvvIzljaDmib/ljIXogJXlnLDmgLvpnaLnp6/nmoQy
+        OC44JeOAguaKpemBk+ensO+8jOi/keW5tOadpeWFqOWbveaJv+WMheiAleWc
+        sOa1gei9rOavlOS+i+aPkOmrmOW5heW6pumAkOW5tOaJqeWkp++8jOWOu+W5
+        tOa1gei9rOavlOS+i+aPkOmrmOS6hjQuOOS4queZvuWIhueCue+8jOS7iuW5
+        tOS4iuWNiuW5tOWPiOaPkOmrmDIuOOS4queZvuWIhueCueOAgmh0dHA6Ly90
+        LmNuL1J6UzBFMWUiLCJzb3VyY2UiOiI8YSBocmVmPVwiaHR0cDovL3dlaWJv
+        LmNvbS9cIiByZWw9XCJub2ZvbGxvd1wiPuW+ruWNmiB3ZWliby5jb208L2E+
+        IiwiZmVlZF9jcmVhdGVkX2F0IjoiMjAxNC0xMi0wNFQyMDo0Njo1MiswODow
+        MCJ9
+    http_version: 
+  recorded_at: Thu, 04 Dec 2014 12:50:23 GMT
+recorded_with: VCR 2.9.3
