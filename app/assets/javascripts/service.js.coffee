@@ -35,6 +35,9 @@ window.Service = (->
   scanQRCode: (callback)->
     TixingBridge.scanQRCode(callback)
 
+  playSound: (name)->
+    TixingBridge.playSound(name) if TixingBridge? and TixingBridge.playSound
+
   uninstall: ->
     TixingBridge.uninstallService() if TixingBridge?
 

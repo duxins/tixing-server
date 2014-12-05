@@ -1,0 +1,19 @@
+.modal-header
+  button.close data-dismiss='modal'
+    span aria-hidden='true'
+  h5.modal-title 提醒设置: #{@weibo_user.name}
+
+form role='form' data-remote='true' method='post' action="/service/weibo/#{@weibo_user.uid}"
+  .modal-body
+    .row
+      .col-xs-3
+        == image_tag @weibo_user.avatar, width: '100%'
+
+      .col-xs-9
+        .form-group
+          label.control-label for='sound_name' 提示音:
+          == select('sound', 'name', options_for_select(@sounds, @follower.sound), { include_blank: true}, { class:'form-control input-xs'})
+
+  .modal-footer
+    input.btn.btn-primary type='submit' value='保存'
+    input.btn.btn-default type='button' data-dismiss='modal' value='取消'

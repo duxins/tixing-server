@@ -1,0 +1,6 @@
+<% if @follower.errors.any? %>
+Service.alert("<%=@follower.errors.full_messages.first%>");
+<% else %>
+$('#modal').modal('hide');
+Service.Weibo.refreshUserList()
+<% end %>

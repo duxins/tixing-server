@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     put 'weibo/following/:name',  to: 'weibo#follow'
     delete 'weibo/following/:id', to: 'weibo#unfollow'
 
+    post 'weibo/:id', to: 'weibo#update'
+    get 'weibo/:id/edit', to: 'weibo#edit'
+
     # V2EX
     get 'v2ex', to: 'v2ex#index'
     post 'v2ex', to: 'v2ex#create'

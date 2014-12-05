@@ -18,6 +18,7 @@ class WeiboWorker
            NotificationHelper.send ({
                user_id: follower['user_id'],
             service_id: Weibo::SERVICE_ID,
+                 sound: follower.sound,
                  title: weibo_user.name,
                message: feed['text'],
           push_message: push_message,

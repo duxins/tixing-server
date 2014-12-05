@@ -10,6 +10,7 @@ class NotificationHelper
     web_url = data[:web_url] || ''
     url = data[:url] || web_url
     ipad_url = data[:ipad_url]
+    sound = data[:sound]
 
     user = User.find_by_id(user_id)
 
@@ -29,7 +30,7 @@ class NotificationHelper
     )
     return unless notification
 
-    sound = installation.preferences[:sound] || user.sound
+    sound = installation.preferences[:sound] || user.sound if sound.blank?
 
     devices = user.devices
     devices.each do |device|

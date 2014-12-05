@@ -11,6 +11,18 @@ class Service::WeiboController < Service::BaseServiceController
     end
   end
 
+  def edit
+    @follower = Weibo::Follower.includes(:weibo_user).find_by(uid: params[:id], user: current_user)
+    @weibo_user = @follower.weibo_user
+    @sounds = Sound.all.collect {|s| [ s.label, s.name] }
+    render partial: 'edit'
+  end
+
+  def update
+    @follower = Weibo::Follower.find_by(user: current_user, uid: params[:id])
+    @follower.update(sound: params[:sound][:name])
+  end
+
   def follow
     @user = Weibo::User.fetch_weibo_user(params[:name])
     @user.followers.create!(user: current_user)
