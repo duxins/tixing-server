@@ -15,6 +15,9 @@ RailsAdmin.config do |config|
       'Weibo::Follower',
       'V2ex::Monitoring',
       'Netease::Monitoring',
+      'Rpush::Apns::App',
+      'Rpush::Apns::Notification',
+      'Rpush::Apns::Feedback',
   ]
 
   config.actions do
