@@ -1,6 +1,7 @@
 class Netease::Monitoring < ActiveRecord::Base
   belongs_to :user
 
+  serialize :options, Hash
   before_validation :format_keyword
   validates :keyword, presence: true, length: {maximum: 20, minimum: 2}, uniqueness: {scope: :user_id}
 

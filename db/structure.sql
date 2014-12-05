@@ -146,6 +146,7 @@ CREATE TABLE `netease_monitorings` (
   `keyword` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `options` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_netease_monitorings_on_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -478,7 +479,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-05 14:46:38
+-- Dump completed on 2014-12-05 15:58:34
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -554,4 +555,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141204142341');
 INSERT INTO schema_migrations (version) VALUES ('20141205035830');
 
 INSERT INTO schema_migrations (version) VALUES ('20141205064620');
+
+INSERT INTO schema_migrations (version) VALUES ('20141205075754');
 
