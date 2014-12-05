@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class Weibo::UserTest < ActiveSupport::TestCase
+  def setup
+    @freeze_time = DateTime.new(2014, 12, 5, 8, 56, 0 ,'+8')
+  end
+
   test 'should fetch weibo user correctly' do
     VCR.use_cassette('weibo_sina_finance') do
       user = Weibo::User.fetch_weibo_user('新浪财经')
@@ -41,4 +45,17 @@ class Weibo::UserTest < ActiveSupport::TestCase
     assert_equal 1638782947, user.uid
   end
 
+  test 'should fetch feeds' do
+    Timecop.freeze(@freeze_time) do
+      VCR.use_cassette('weibo_sina_finance_feeds') do
+        user = Weibo::User.create(uid: 1638782947, name: '新浪财经')
+        feeds = user.fetch_feeds
+        assert_equal 1, feeds.count
+        user.reload
+        assert_equal 3784341387718007, user.last_weibo_id.to_i
+        feeds = user.fetch_feeds
+        assert_equal 0, feeds.count
+      end
+    end
+  end
 end

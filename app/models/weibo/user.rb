@@ -41,40 +41,52 @@ class Weibo::User < ActiveRecord::Base
     end
   end
 
-
-  def followed_by?(user)
-    self.followers.where(user: user).present?
-  end
-
-  def fetch_new_feeds
+  def fetch_feeds
     url = ENV['weibo_api'] + "/feed/#{self.uid}"
+    Rails.logger.info "[WEIBO] [##{self.uid} - #{self.name}] Started fetch feeds"
+
     since = self.last_weibo_id
     url += "?since=#{since}" if since
 
     begin
       feeds = Weibo::User.request_api(url)
+      feeds.select! do |feed|
+        feed['mid'] > self.last_weibo_id.to_i and DateTime.parse(feed['created_at']) > 30.minutes.ago
+      end
       return [] if feeds.empty?
-
-      Rails.logger.info("Feeds: #{feeds.map{|x| x['mid']}}")
-
-      feeds.select!{|feed| feed['mid'] > self.last_weibo_id.to_i}
+      Rails.logger.info "[WEIBO] [##{self.uid} - #{self.name}] Fetched #{feeds.count} feeds"
       feeds.sort_by!{|feed| feed['mid']}
+      self.update(last_weibo_id: feeds.last['mid'], last_checked_at: DateTime.now)
+      feeds
     rescue => e
-      Rails.logger.error("[WEIBO] #{e.message}")
-      Rails.logger.error("Weibo API error (feed/#{self.uid}) :#{e.message}")
+      Rails.logger.error("[WEIBO] Error: [##{self.uid} - #{self.name}] #{e.message}")
       return []
     end
   end
 
   def self.request_api(url)
     Rails.logger.info "[WEIBO] Request API: #{url}"
-    json_str = Timeout::timeout(10) do
-      Curl::Easy.perform(url) do |curl|
-        curl.connect_timeout = 10
-      end.body_str
+
+    begin
+      curl = Timeout::timeout(10) do
+        Curl::Easy.perform(url) do |c|
+        end
+      end
+    rescue => e
+      raise APIError.new(e.message)
     end
 
-    JSON.parse(json_str)
+    raise NotFound if curl.status =~ /404/
+
+    begin
+      json_str = curl.body_str
+      json = JSON.parse(json_str)
+    rescue JSON::ParserError => e
+      raise APIError.new(e.message)
+    end
+
+    raise APIError.new(json_str) if json.is_a? Hash and json.has_key? 'error'
+    json
   end
 
   def self.fetch_weibo_user(name)
@@ -94,8 +106,7 @@ class Weibo::User < ActiveRecord::Base
       self.save_weibo_user weibo_user
     rescue => e
       Rails.logger.error "[WEIBO] Error: #{e.message}"
-      raise NotFound if e.message =~ /404/
-      raise APIError.new(e.message)
+      raise e
     end
   end
 

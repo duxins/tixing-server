@@ -6,11 +6,10 @@ class WeiboWorker
 
   def perform(id)
     weibo_user = Weibo::User.find(id)
-    feeds = weibo_user.fetch_new_feeds
+    feeds = weibo_user.fetch_feeds
     return if feeds.empty?
 
     followers = weibo_user.followers
-    weibo_user.update(last_checked_at: DateTime.now, last_weibo_id: feeds.last['mid'])
 
     feeds.each do |feed|
        push_message = "#{weibo_user['name']}发微博了: #{feed['text']}"
