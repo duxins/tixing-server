@@ -1,7 +1,19 @@
 namespace :weibo do
-  desc '开始抓取微博'
-  task :run => :environment do
-    Weibo::User.available.each do |user|
+  desc '抓取微博'
+  task :run, [:priority] => :environment do |t, args|
+    priority = args[:priority] || 'all'
+
+    range = case priority
+              when 'low'
+                1..10
+              when 'high'
+                10..10000
+              else
+                1..10000
+            end
+
+    users = Weibo::User.where(followers_count: range)
+    users.each do |user|
       WeiboWorker.perform_async(user.id)
     end
   end

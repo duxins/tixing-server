@@ -95,7 +95,7 @@ class Weibo::User < ActiveRecord::Base
     Rails.logger.info "[WEIBO] Started fetch user: #{name}"
 
     user = self.find_by_name(name)
-    if user.present? and user.updated_at > 5.minutes.ago
+    if user.present? and user.updated_at > 60.minutes.ago
       Rails.logger.info "[WEIBO] User #{name} exists"
       return user
     end
