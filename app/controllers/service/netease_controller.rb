@@ -8,6 +8,18 @@ class Service::NeteaseController < Service::BaseServiceController
     end
   end
 
+  def edit
+    @monitoring = Netease::Monitoring.find_by(id: params[:id], user: current_user)
+    @sources = Netease::Monitoring::SOURCES
+    render partial: 'edit'
+  end
+
+  def update
+    @monitoring = Netease::Monitoring.find_by(id: params[:id], user: current_user)
+    @monitoring.options[:filtered_sources] = params[:filtered_sources]
+    @monitoring.save!
+  end
+
   def create
     begin
       @keyword = Netease::Monitoring.new(keyword: params[:keyword], user: current_user)

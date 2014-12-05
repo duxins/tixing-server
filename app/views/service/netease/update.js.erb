@@ -1,0 +1,6 @@
+<% if @monitoring.errors.any? %>
+Service.alert("<%=@monitoring.errors.full_messages.first%>");
+<% else %>
+$('#modal').modal('hide');
+Service.Netease.refresh()
+<% end %>

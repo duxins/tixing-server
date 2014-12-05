@@ -57,6 +57,61 @@ class Netease::MonitoringTest < ActiveSupport::TestCase
 
   end
 
+  test 'should skip specific media source' do
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 1, options: {filtered_sources: %w[环球网 新华网]})
+    assert monitoring.matches_source?('环球网')
+    assert monitoring.matches_source?('环球时报')
+    assert_not monitoring.matches_source?('CNN')
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 2, options: {filtered_sources: %w[人民网]})
+    assert monitoring.matches_source?('人民网')
+    assert monitoring.matches_source?('人民日报')
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 3, options: {filtered_sources: %w[人民网 环球网]})
+    assert monitoring.matches_source?('人民网')
+    assert monitoring.matches_source?('环球时报')
+    assert monitoring.matches_source?('环球网')
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 4, options: nil)
+    assert_not monitoring.matches_source?('人民网')
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 5, options: {filtered_sources: %w[CNN]})
+    assert_not monitoring.matches_source?('人民网')
+
+
+    news = {
+        'title' => '习近平将走遍澳大利亚所有州 幽默要证书',
+        'digest' => '中国国家主席习近平在堪培拉会见澳大利亚总督科斯格罗夫',
+        'source' => '人民网'
+    }
+
+    monitoring = Netease::Monitoring.create(keyword:'习近平', user_id: 7, options: {filtered_sources: %w[人民网]})
+    assert_not monitoring.matched?(news)
+
+    monitoring = Netease::Monitoring.create(keyword:'习近平', user_id: 8, options: {filtered_sources: %w[环球网]})
+    assert monitoring.matched?(news)
+
+    monitoring = Netease::Monitoring.create(keyword:'习近平', user_id: 9, options: nil)
+    assert monitoring.matched?(news)
+
+  end
+
+  test 'should not save with invalid filtered_source option' do
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 1, options: {filtered_sources: %w[人民网]})
+    assert_empty monitoring.errors
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 2, options: {filtered_sources: %w[CNN]})
+    assert_equal 1, monitoring.errors.count
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 3, options: nil)
+    assert_empty monitoring.errors
+
+    monitoring = Netease::Monitoring.create(keyword:'关键词', user_id: 4, options: {filtered_sources: '人民网'}) #String
+    assert_equal 1, monitoring.errors.count
+  end
+
+
   test 'should format keyword properly' do
     assert_equal '关键词', create_monitoring('关键词').keyword
     assert_equal '关键词', create_monitoring('   关键词   ').keyword

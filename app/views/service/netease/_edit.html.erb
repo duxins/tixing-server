@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h5 class="modal-title">提醒设置 - <%= @monitoring.keyword %></h5>
+</div>
+
+<form role="form" data-remote="true" method="patch" action="/service/netease/<%=@monitoring.id%>">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label class="control-label">屏蔽新闻来源: </label>
+          <div class="checkbox">
+            <% @sources.each do |source| %>
+                <label><%= check_box_tag "filtered_sources[]", source, @monitoring.options[:filtered_sources].try(:include?, source) %><%=source%> &nbsp;</label>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <input type="submit" class="btn btn-primary" value="保存"/>
+    <input type="button" class="btn btn-default" data-dismiss="modal" value="取消">
+  </div>
+</form>
+

@@ -9,14 +9,25 @@ Service.Netease = (->
     $('#keyword').val('')
     Service.Netease.addKeyword(keyword)
 
+  editKeyword = (id)->
+    url = baseURL + id + '/edit'
+    $('#modal-content').load(url, ->
+      $('#modal').modal()
+    )
+
   removeKeywordHandler = (e)->
     id = $(@).data('id')
     Service.Netease.removeKeyword id, ->
       Service.Netease.refresh()
 
+  editHandler = (e)->
+    id = $(@).data('id')
+    editKeyword(id)
+
   init: ->
     $('#keyword').keydown addKeywordHandler
     $('#keyword_list').on 'click', '.remove_button', removeKeywordHandler
+    $('#keyword_list').on 'click', '.edit_button', editHandler
 
   refresh: ->
     $('#keyword_list').load(baseURL + '?partial=1')
