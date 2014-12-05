@@ -363,6 +363,22 @@ CREATE TABLE `shunfeng_products` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `sounds`
+--
+
+DROP TABLE IF EXISTS `sounds`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sounds` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
+  `package` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `users`
 --
 
@@ -461,7 +477,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-04 22:24:31
+-- Dump completed on 2014-12-05 12:51:28
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -533,4 +549,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141203040411');
 INSERT INTO schema_migrations (version) VALUES ('20141204021430');
 
 INSERT INTO schema_migrations (version) VALUES ('20141204142341');
+
+INSERT INTO schema_migrations (version) VALUES ('20141205035830');
 
