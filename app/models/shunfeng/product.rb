@@ -41,8 +41,20 @@ class Shunfeng::Product < ActiveRecord::Base
     end
     json = JSON.parse(json_str)
     data = json['data']
-    raise "[sku: #{sku}] invalid price #{json}" if data.nil? or data['price'].to_f <= 0
-    data['price'].to_f
+    raise "[sku: #{sku}] invalid json data #{json}" if data.nil? or data['type'].nil?
+
+    type = data['type'].to_i
+    price = data['price'].to_f
+    sfprice = data['sfprice'].to_f
+
+    case type
+      when 1, 2 #抢购价
+        price
+      when 3, 4, 33 #银卡, #金卡, #钻石卡
+        sfprice
+      else
+        sfprice
+    end
   end
 
   def self.url(id)

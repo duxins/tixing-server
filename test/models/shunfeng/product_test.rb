@@ -15,6 +15,27 @@ class Shunfeng::ProductTest < ActiveSupport::TestCase
     end
   end
 
+  test 'should fetch correct price' do
+    VCR.use_cassette('shunfeng_chicken_leg_1800024143') do
+      product = Shunfeng::Product.fetch(1800024143)
+      assert_equal 39.8, product.price
+    end
+
+    #http://www.sfbest.com/html/products/9/1800008669.html
+    #金卡以上会员
+    VCR.use_cassette('shunfeng_1800008669') do
+      product = Shunfeng::Product.fetch(1800008669)
+      assert_equal 39.8, product.price
+    end
+
+    VCR.use_cassette'shunfeng_beef_1800018756' do
+      product = Shunfeng::Product.fetch(1800018756)
+      assert_equal 109, product.price
+    end
+
+    #TODO: 钻石卡
+  end
+
   test 'should return proper thumb URL' do
     assert_equal 'http://p02.sfbest.com/2013/1500012174/thumb_1500012174_1_1.jpg', shunfeng_products(:shrimp).thumb
     assert_not shunfeng_products(:vc).thumb
