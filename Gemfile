@@ -23,6 +23,7 @@ gem 'kaminari'
 gem 'grape', '0.7.0'
 gem 'grape-entity', '0.4.4'
 gem 'rack-attack', '4.2.0'
+gem 'redis-rails'
 
 gem "rails-settings-cached", "0.4.1"
 

@@ -29,6 +29,7 @@ module Tixing
     # config.i18n.default_locale = :en
 
     config.middleware.use Rack::Attack
+    Rack::Attack.cache.store = ActiveSupport::Cache::RedisStore.new
 
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
