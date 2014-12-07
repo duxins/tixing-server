@@ -40,7 +40,9 @@ $ bundle install
 ```
 
 ### Step 3: Setup Config Files
-```
+```shell
+$ cp config/{application.yml.example,application.yml}
+$ vi config/application.yml
 $ cp config/{database.yml.example,database.yml}
 $ vi config/database.yml
 ```
@@ -58,6 +60,9 @@ $ redis-server
 
 # start sidekiq
 $ bundle exec sidekiq
+
+# start rpush
+$ bundle exec rpush start
 
 $ rails s
 ```
