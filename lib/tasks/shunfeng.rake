@@ -1,6 +1,6 @@
 namespace :shunfeng do
   desc '抓取顺丰优选价格'
-  task :run do
+  task :run => :environment do
     products =  Shunfeng::Product.available.pluck(:id)
     next if products.empty?
     products.each do |id|
@@ -9,7 +9,7 @@ namespace :shunfeng do
   end
 
   desc '清理商品'
-  task :cleanup do
+  task :cleanup => :environment do
     Rails.logger.info "[SF] Started cleanup"
     products = Shunfeng::Product.where(monitorings_count: 0).where('updated_at <= ?', 2.hours.ago)
     Rails.logger.info "[SF] Found #{products.count} orphan products" if products.present?
