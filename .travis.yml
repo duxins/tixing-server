@@ -2,10 +2,10 @@ language: ruby
 bundler_args: --without production development
 rvm:
   - 2.1.2
-
 before_script:
-  - "mysql -e 'create database tixing_test;'"
   - 'cp ./.travis.database.yml ./config/database.yml'
   - 'cp ./.travis.application.yml ./config/application.yml'
-
-script: bundle exec rake test
+  - 'mkdir -p ./tmp/cache'
+script:
+  - bundle exec rake db:setup
+  - bundle exec rake test
