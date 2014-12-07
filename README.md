@@ -2,6 +2,8 @@
 
 This is the source code of backend server for the [消息提醒] (https://itunes.apple.com/us/app/xiao-xi-ti-xing/id933267052?l=zh&ls=1&mt=8) app.
 
+[![Build Status](https://travis-ci.org/duxins/tixing-server.svg)](https://travis-ci.org/duxins/tixing-server)
+
 ## TRY IT OUT
 
 ### Step 1: Install Prerequisites
