@@ -28,12 +28,13 @@ module APIv1
     end
 
     post '/signup' do
-      user = User.create(name: params[:name], password: params[:password])
+      user = User.create(name: params[:name], password: params[:password], reg_user_agent: request.headers['User-Agent'], reg_ip: request.env['REMOTE_ADDR'])
       if user.errors.any?
         error!({error:user.errors.full_messages.join(' '), code:1002}, 400)
       else
+        UserMailer.delay.new_user_email(user) if Rails.env.production?
         thumb =  request.base_url + "/icons/tixing.png"
-        Notification.create(message: '欢迎使用消息提醒', title:'消息提醒', thumb: thumb, user: user)
+        Notification.create(message: "欢迎使用消息提醒客户端\n请点击右上角齿轮按钮，选择你要添加的提醒服务", title:'消息提醒', thumb: thumb, user: user)
         present user, with: APIv1::Entities::User, type: 'full'
       end
     end

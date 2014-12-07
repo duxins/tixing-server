@@ -397,6 +397,8 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `disabled` tinyint(1) DEFAULT '0',
+  `reg_user_agent` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `reg_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_name` (`name`),
   KEY `index_users_on_auth_token` (`auth_token`),
@@ -479,7 +481,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-05 15:58:34
+-- Dump completed on 2014-12-07 22:21:50
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -557,4 +559,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141205035830');
 INSERT INTO schema_migrations (version) VALUES ('20141205064620');
 
 INSERT INTO schema_migrations (version) VALUES ('20141205075754');
+
+INSERT INTO schema_migrations (version) VALUES ('20141207142042');
 
