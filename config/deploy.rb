@@ -17,6 +17,7 @@ set :shared_paths, [
     'config/application.yml',
     'config/newrelic.yml',
     'config/apn_certificate.pem',
+    'config/initializers/rack-attack.rb',
     'tmp',
     'log',
 ]

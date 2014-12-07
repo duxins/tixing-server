@@ -20,4 +20,4 @@
 /config/application.yml
 /config/apn_certificate.pem
 /config/newrelic.yml
-
+/config/initializers/rack-attack.rb
