@@ -461,6 +461,7 @@ CREATE TABLE `weibo_users` (
   `metadata` text COLLATE utf8_unicode_ci,
   `priority` int(11) DEFAULT '0',
   `last_weibo_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `posted_at` datetime DEFAULT NULL,
   `checked_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -481,7 +482,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-08  8:04:42
+-- Dump completed on 2014-12-08 13:15:01
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -565,4 +566,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141207142042');
 INSERT INTO schema_migrations (version) VALUES ('20141207234831');
 
 INSERT INTO schema_migrations (version) VALUES ('20141208000413');
+
+INSERT INTO schema_migrations (version) VALUES ('20141208002027');
 
