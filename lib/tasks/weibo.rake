@@ -1,20 +1,18 @@
 namespace :weibo do
   desc '抓取微博'
-  task :run, [:priority] => :environment do |t, args|
-    priority = args[:priority] || 'all'
+  task :run, [:important] => :environment do |t, args|
+    important = args[:important]
 
-    range = case priority
-              when 'low'
-                1..10
-              when 'high'
-                10..10000
-              else
-                1..10000
+    users = unless important
+              Weibo::User.less_important
+            else
+              Weibo::User.important
             end
 
-    users = Weibo::User.where(followers_count: range)
     users.each do |user|
-      WeiboWorker.perform_async(user.id)
+      diff = DateTime.now.to_i - user.checked_at.to_i
+      Rails.logger.info "[WEIBO] skip #{user.name} {diff: #{diff}, frequency: #{user.frequency}}" and next if user.frequency > diff
+      WeiboWorker.perform_async user.id
     end
   end
 

@@ -39,7 +39,8 @@ class Weibo::User < ActiveRecord::Base
         column_width 140
       end
 
-      field :last_checked_at
+      field :posted_at
+      field :checked_at
       field :created_at
     end
   end
@@ -53,13 +54,14 @@ class Weibo::User < ActiveRecord::Base
 
     begin
       feeds = Weibo::User.request_api(url)
+      self.update(checked_at: DateTime.now)
       feeds.select! do |feed|
-        feed['mid'] > self.last_weibo_id.to_i and DateTime.parse(feed['created_at']) > 30.minutes.ago
+        feed['mid'] > self.last_weibo_id.to_i and DateTime.parse(feed['created_at']) > 80.minutes.ago
       end
       return [] if feeds.empty?
       Rails.logger.info "[WEIBO] [##{self.uid} - #{self.name}] Fetched #{feeds.count} feeds"
       feeds.sort_by!{|feed| feed['mid']}
-      self.update(last_weibo_id: feeds.last['mid'], last_checked_at: DateTime.now)
+      self.update(last_weibo_id: feeds.last['mid'], posted_at: DateTime.parse(feeds.last['created_at']))
       feeds
     rescue => e
       Rails.logger.error("[WEIBO] Error: [##{self.uid} - #{self.name}] #{e.message}")
@@ -121,11 +123,31 @@ class Weibo::User < ActiveRecord::Base
 
     if user.new_record?
       user.last_weibo_id = weibo_user['mid']
-      user.last_checked_at = DateTime.now
+      user.checked_at = DateTime.now
+      user.posted_at = DateTime.parse(weibo_user['feed_created_at']) if weibo_user['feed_created_at']
     end
     user.save
     user.touch
     user
+  end
+
+  # 根据上次微博更新时间计算抓取频率
+  def frequency
+    return 60.minutes if self.posted_at.nil?
+
+    if self.posted_at    < 365.days.ago
+      80.minutes
+    elsif self.posted_at < 90.days.ago
+      60.minutes
+    elsif self.posted_at < 30.days.ago
+      30.minutes
+    elsif self.posted_at < 5.days.ago
+      15.minutes
+    elsif self.posted_at < 2.days.ago
+      10.minutes
+    else
+      3.minutes
+    end
   end
 
   def url

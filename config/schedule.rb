@@ -1,10 +1,10 @@
 # 微博
 every 3.minutes do
-  rake 'weibo:run[high]'
+  rake 'weibo:run[1]'
 end
 
 every 5.minutes do
-  rake 'weibo:run[low]'
+  rake 'weibo:run'
 end
 
 every 2.hours do

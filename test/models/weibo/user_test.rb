@@ -10,6 +10,7 @@ class Weibo::UserTest < ActiveSupport::TestCase
       user = Weibo::User.fetch_weibo_user('新浪财经')
       assert_equal 1638782947, user.uid
       assert_equal '新浪财经', user.name
+      assert_equal DateTime.parse("2014-12-04 20:46:52+8"), user.posted_at
       assert_equal 'http://tp4.sinaimg.cn/1638782947/180/5710057679/1', user.avatar
     end
   end
@@ -50,9 +51,11 @@ class Weibo::UserTest < ActiveSupport::TestCase
       VCR.use_cassette('weibo_sina_finance_feeds') do
         user = Weibo::User.create(uid: 1638782947, name: '新浪财经')
         feeds = user.fetch_feeds
-        assert_equal 1, feeds.count
+        assert_equal 4, feeds.count
         user.reload
         assert_equal 3784341387718007, user.last_weibo_id.to_i
+        assert_equal @freeze_time, user.checked_at
+        assert_equal DateTime.parse(feeds.last['created_at']), user.posted_at
         feeds = user.fetch_feeds
         assert_equal 0, feeds.count
       end
@@ -70,5 +73,42 @@ class Weibo::UserTest < ActiveSupport::TestCase
     assert_equal 3, Weibo::User.important.count
     assert_equal 1, Weibo::User.less_important.count
     assert_equal 4, Weibo::User.less_important.first.uid
+  end
+
+  test 'should return correct frequencies' do
+    now = DateTime.new(2014, 12, 5, 8, 56, 0 ,'+8')
+    Timecop.freeze(now) do
+      # Today
+      user = Weibo::User.create(uid: 1, posted_at: DateTime.parse('2014-12-05 08:50:00+8'))
+      assert_equal 3.minutes, user.frequency
+
+      # Yesterday
+      user = Weibo::User.create(uid: 2, posted_at: DateTime.parse('2014-12-04 08:50:00+8'))
+      assert_equal 3.minutes, user.frequency
+
+      # 3 days ago
+      user = Weibo::User.create(uid: 3, posted_at: DateTime.parse('2014-12-02 08:50:00+8'))
+      assert_equal 10.minutes, user.frequency
+
+      # 5 days ago
+      user = Weibo::User.create(uid: 4, posted_at: DateTime.parse('2014-11-30 08:50:00+8'))
+      assert_equal 15.minutes, user.frequency
+
+      # 1 month ago
+      user = Weibo::User.create(uid: 5, posted_at: DateTime.parse('2014-11-04 08:50:00+8'))
+      assert_equal 30.minutes, user.frequency
+
+      # 3 months ago
+      user = Weibo::User.create(uid: 6, posted_at: DateTime.parse('2014-9-04 08:50:00+8'))
+      assert_equal 60.minutes, user.frequency
+
+      # 1 year ago
+      user = Weibo::User.create(uid: 7, posted_at: DateTime.parse('2013-12-04 08:50:00+8'))
+      assert_equal 80.minutes, user.frequency
+
+      user = Weibo::User.create(uid: 8, posted_at: nil)
+      assert_equal 60.minutes, user.frequency
+
+    end
   end
 end
