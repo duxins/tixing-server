@@ -5,6 +5,9 @@ class Weibo::User < ActiveRecord::Base
   has_many :followers, primary_key:'uid', foreign_key:'uid', class_name: "Weibo::Follower", dependent: :destroy
   scope :available, lambda { where('followers_count >?', 0).order('followers_count DESC') }
 
+  scope :important, lambda { where('priority = ? or followers_count BETWEEN ? AND ?', priorities[:high], 10, 100000).order(followers_count: :desc)}
+  scope :less_important, lambda { where(followers_count: 1..10).where.not(priority: priorities[:high]).order(followers_count: :desc) }
+
   enum priority: [:low, :medium, :high]
 
   rails_admin do

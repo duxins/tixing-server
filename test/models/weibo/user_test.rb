@@ -58,4 +58,17 @@ class Weibo::UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'scope' do
+    #important: priority: :high or followers_count between 1 and 10000
+    #less-important: followers_count between 1 and 10 and priority != :high
+    Weibo::User.create(uid: 1, priority: :high, followers_count: 1)
+    Weibo::User.create(uid: 2, priority: :low,  followers_count: 10000)
+    Weibo::User.create(uid: 3, priority: :medium,  followers_count: 1000)
+
+    Weibo::User.create(uid: 4, priority: :low,  followers_count: 9)
+    assert_equal 3, Weibo::User.important.count
+    assert_equal 1, Weibo::User.less_important.count
+    assert_equal 4, Weibo::User.less_important.first.uid
+  end
 end
