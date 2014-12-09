@@ -59,6 +59,7 @@ class NotificationHelper
     n.device_token = token
     n.alert = message
     n.sound = sound
+    n.expiry = 1800
     n.data = custom_data
     n.save!
   end
