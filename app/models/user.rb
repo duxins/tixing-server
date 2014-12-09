@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   before_create :generate_token
 
   validates :name, presence: true, uniqueness: { case_sensitive: false, if: :name_changed? }, format: { with: /\A[a-z0-9]{4,15}\Z/i}
+  validates :password, length: {minimum: 3}
 
 private
 
