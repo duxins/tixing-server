@@ -161,8 +161,8 @@ DROP TABLE IF EXISTS `notifications`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `message` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sound` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -238,7 +238,7 @@ CREATE TABLE `rpush_notifications` (
   `badge` int(11) DEFAULT NULL,
   `device_token` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sound` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'default',
-  `alert` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alert` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `data` text COLLATE utf8_unicode_ci,
   `expiry` int(11) DEFAULT '86400',
   `delivered` tinyint(1) NOT NULL DEFAULT '0',
@@ -482,7 +482,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-08 13:15:01
+-- Dump completed on 2014-12-15 13:56:14
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -568,4 +568,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141207234831');
 INSERT INTO schema_migrations (version) VALUES ('20141208000413');
 
 INSERT INTO schema_migrations (version) VALUES ('20141208002027');
+
+INSERT INTO schema_migrations (version) VALUES ('20141215053546');
 
