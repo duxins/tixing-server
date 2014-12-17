@@ -163,16 +163,16 @@ CREATE TABLE `notifications` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `message` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `thumb` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `sound` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `service_id` int(11) DEFAULT NULL,
-  `web_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ipad_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `web_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `ipad_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `highlight` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`),
@@ -482,7 +482,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-15 13:56:14
+-- Dump completed on 2014-12-16 12:04:28
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -570,4 +570,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141208000413');
 INSERT INTO schema_migrations (version) VALUES ('20141208002027');
 
 INSERT INTO schema_migrations (version) VALUES ('20141215053546');
+
+INSERT INTO schema_migrations (version) VALUES ('20141216035442');
 
