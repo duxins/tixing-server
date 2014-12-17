@@ -36,7 +36,7 @@ $ brew install mysql
 ### Step 2: Clone Git Repo
 
 ```shell
-$ git clone git@github.com/duxins/tixing-server
+$ git clone git@github.com:duxins/tixing-server
 $ cd tixing-server
 $ bundle install
 ```
