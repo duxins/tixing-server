@@ -36,8 +36,13 @@ Rpush.reflect do |on|
   # Called with a Rpush::Apns::Feedback instance when feedback is received
   # from the APNs that a notification has failed to be delivered.
   # Further notifications should not be sent to the device.
-  # on.apns_feedback do |feedback|
-  # end
+  on.apns_feedback do |feedback|
+    devices = Device.where(token: feedback.device_token).where('updated_at < ?', feedback.failed_at)
+    devices.each do |device|
+      Rails.logger.info("[Feedback] Delete device: ##{device.id}, #{device.name} #{device.token}")
+      device.destroy
+    end
+  end
 
   # Called when a notification is queued internally for delivery.
   # The internal queue for each app runner can be inspected:
