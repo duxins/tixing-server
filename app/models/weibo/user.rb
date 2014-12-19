@@ -3,10 +3,10 @@ class Weibo::User < ActiveRecord::Base
   class APIError < StandardError; end
 
   has_many :followers, primary_key:'uid', foreign_key:'uid', class_name: "Weibo::Follower", dependent: :destroy
-  scope :available, lambda { where('followers_count >?', 0).order('followers_count DESC') }
+  scope :available, lambda { where('followers_count >?', 0).where(active: true).order('followers_count DESC') }
 
-  scope :important, lambda { where('priority = ? or followers_count BETWEEN ? AND ?', priorities[:high], 10, 100000).order(followers_count: :desc)}
-  scope :less_important, lambda { where(followers_count: 1..10).where.not(priority: priorities[:high]).order(followers_count: :desc) }
+  scope :important, lambda { where(active: true).where('priority = ? or followers_count BETWEEN ? AND ?', priorities[:high], 10, 100000).order(followers_count: :desc)}
+  scope :less_important, lambda { where(active: true).where(followers_count: 1..10).where.not(priority: priorities[:high]).order(followers_count: :desc) }
 
   enum priority: [:low, :medium, :high]
 
@@ -26,6 +26,9 @@ class Weibo::User < ActiveRecord::Base
           end
         end
       end
+      field :active do
+        column_width 70
+      end
 
       field :followers_count do
         column_width 50
@@ -42,6 +45,11 @@ class Weibo::User < ActiveRecord::Base
       field :posted_at
       field :checked_at
       field :created_at
+    end
+
+    edit do
+      field :active do
+      end
     end
   end
 

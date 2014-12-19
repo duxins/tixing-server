@@ -467,6 +467,7 @@ CREATE TABLE `weibo_users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `followers_count` int(11) DEFAULT '0',
+  `active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_weibo_users_on_uid` (`uid`),
   KEY `index_weibo_users_on_deleted_at` (`deleted_at`)
@@ -482,7 +483,7 @@ CREATE TABLE `weibo_users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-12-16 12:04:28
+-- Dump completed on 2014-12-19 21:57:26
 INSERT INTO schema_migrations (version) VALUES ('20141013122113');
 
 INSERT INTO schema_migrations (version) VALUES ('20141014004947');
@@ -572,4 +573,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141208002027');
 INSERT INTO schema_migrations (version) VALUES ('20141215053546');
 
 INSERT INTO schema_migrations (version) VALUES ('20141216035442');
+
+INSERT INTO schema_migrations (version) VALUES ('20141219135518');
 
