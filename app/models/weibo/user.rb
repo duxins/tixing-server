@@ -48,7 +48,11 @@ class Weibo::User < ActiveRecord::Base
     end
 
     edit do
-      field :active do
+      field :active
+      field :priority, :enum do
+        enum_method do
+          :priority_enum
+        end
       end
     end
   end
@@ -160,6 +164,11 @@ class Weibo::User < ActiveRecord::Base
 
   def url
     "http://weibo.com/u/#{self.uid}"
+  end
+
+private
+  def priority_enum
+    [:low, :medium, :high]
   end
 
 end
