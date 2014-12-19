@@ -19,6 +19,7 @@ module APIv1
           device.save
         else
           device.timezone = params[:timezone]
+          device.updated_at = DateTime.now
           device.save
         end
       end
