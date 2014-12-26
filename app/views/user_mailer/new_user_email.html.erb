@@ -1,0 +1,8 @@
+Date: <%= @user.created_at.in_time_zone(8).strftime('%Y-%m-%d %H:%M:%S') %> <br/>
+<hr/>
+id: <%= @user.id %> <br/>
+name: <%= @user.name %> <br/>
+IP: <%= link_to @user.reg_ip, "http://www.ip.cn/index.php?ip=#{@user.reg_ip}" %> <br/>
+UA: <%= @user.reg_user_agent %>
+
+
