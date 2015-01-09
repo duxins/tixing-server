@@ -3,6 +3,7 @@ Service.Jingdong = (->
 
   parseQRCode = (code)->
     match = /^http:\/\/m.jd.com\/product\/(\d+)\.html/.exec code
+    match = /^http:\/\/m\.jr\.jd\.com\/bt\/btzf\.html\?pid=(\d+)/.exec code if match == null
     return Service.alert('解析二维码失败') if match == null
     product_number = match[1]
     searchProduct product_number
