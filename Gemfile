@@ -13,7 +13,7 @@ gem 'sidekiq'
 gem 'sidekiq-middleware'
 gem 'json'
 gem 'houston'
-gem 'rpush', '~> 2.2.0'
+gem 'rpush', '~> 2.4.0'
 
 gem 'curb'
 gem 'mechanize'
