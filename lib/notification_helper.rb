@@ -41,6 +41,26 @@ class NotificationHelper
 
   end
 
+  def self.notify(user_id, message, url = nil)
+    user = User.find(user_id)
+    return unless user
+
+    notification = Notification.create(
+        user: user,
+        service_id:0,
+        thumb: 'https://tixing.io/icons/tixing.png',
+        url: url,
+        web_url: nil,
+        ipad_url: nil,
+        title: '消息提醒',
+        message: message
+    )
+
+    user.devices.each do |device|
+      self.deliver(message, device['token'], 'default', {id: notification.id})
+    end
+  end
+
   def self.deliver(message, token, sound, custom_data = {})
     cache_key = "device:token:#{token}"
 
